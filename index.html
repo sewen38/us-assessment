@@ -104,7 +104,7 @@ table.cm td:first-child{text-align:left;font-weight:500}
 </div>
 
 <div class="card"><h2><span class="num">4</span> O-1 杰出能力签证专项</h2>
-<div class="fg"><label class="q">申请人主要领域</label><select id="o_category"><option value="">请选择</option><option value="science">科学/技术/教育/研究</option><option value="business">商业/企业家/高管</option><option value="sports">体育/竞技</option><option value="arts">艺术/设计/内容创作</option><option value="film">影视/演艺/制作</option></select></div>
+<div class="fg"><label class="q">申请人主要领域</label><select id="o_category"><option value="">请选择</option><option value="science">科学/技术/教育/研究</option><option value="business">商业/企业家/高管</option><option value="sports">体育/竞技</option><option value="arts">艺术/设计/内容创作</option><option value="film">影视/演艺/制作</option><option value="none">不申请</option></select></div>
 <div class="fg"><label class="q">是否已有美国雇主、美国代理人或美国项目方愿意担保/提交I-129？<span class="hint">(O-1必须由美国雇主/代理人/项目方申请，不能纯个人自递)</span></label><div class="radio-row"><label class="ropt"><input type="radio" name="o_sponsor" value="yes"> 是</label><label class="ropt"><input type="radio" name="o_sponsor" value="neg"> 洽谈中</label><label class="ropt"><input type="radio" name="o_sponsor" value="no"> 否</label></div></div>
 <div class="fg"><label class="q">是否已有美国项目合同/邀请/演出/咨询/任职安排？</label><div class="radio-row"><label class="ropt"><input type="radio" name="o_contract" value="yes"> 是</label><label class="ropt"><input type="radio" name="o_contract" value="neg"> 洽谈中</label><label class="ropt"><input type="radio" name="o_contract" value="no"> 否</label></div></div>
 <div class="fg"><label class="q">是否需要配偶/21岁以下未婚子女随行？<span class="hint">(O-3家属可随行和学习，但不可工作)</span></label><div class="radio-row"><label class="ropt"><input type="radio" name="o_family" value="yes"> 是</label><label class="ropt"><input type="radio" name="o_family" value="no"> 否</label></div></div>
@@ -161,7 +161,7 @@ table.cm td:first-child{text-align:left;font-weight:500}
       'bizscale':{'small':'小型（<50万）','medium':'中型（50万-500万）','large':'大型（>500万）'},
       'english':{'native':'精通','good':'良好','basic':'一般','none':'基础/不会'},
       'budget':{'lt100k':'低于10万美元','100k-500k':'10万-50万美元','500k-1m':'50万-100万美元','gte1m':'100万美元及以上'},
-      'o_category':{'science':'科学/技术/教育/研究','business':'商业/企业家/高管','sports':'体育/竞技','arts':'艺术/设计/内容创作','film':'影视/演艺/制作'}
+      'o_category':{'science':'科学/技术/教育/研究','business':'商业/企业家/高管','sports':'体育/竞技','arts':'艺术/设计/内容创作','film':'影视/演艺/制作','none':'不申请'}
     };
     return (m[id]||{})[v]||v;
   }
@@ -242,9 +242,9 @@ table.cm td:first-child{text-align:left;font-weight:500}
     if(!manager)missing.push('管理经验');
     if(!mnc)missing.push('跨国公司');
     if(!oCategory)missing.push('O-1领域');
-    if(!oSponsor)missing.push('O-1担保方');
-    if(!oContract)missing.push('O-1项目合同');
-    if(!oFamily)missing.push('O-3家属随行');
+    if(oCategory!=='none'&&!oSponsor)missing.push('O-1担保方');
+    if(oCategory!=='none'&&!oContract)missing.push('O-1项目合同');
+    if(oCategory!=='none'&&!oFamily)missing.push('O-3家属随行');
     if(!networth)missing.push('净资产');
     if(!bizowner)missing.push('业务实体');
     if(!usemp)missing.push('美国雇主');
@@ -360,15 +360,16 @@ table.cm td:first-child{text-align:left;font-weight:500}
     var h1bAdvantage=isAdvancedDegree&&hasUSAEmployer;
 
     // O-1/O-3 eligibility
+    var oSkip=(oCategory==='none');
     var isO1B=(oCategory==='arts'||oCategory==='film');
     var hasOSponsor=(oSponsor==='yes');
     var hasOProject=(oContract==='yes');
     var oCoreOk=hasOSponsor&&hasOProject;
     var oEvidenceStrong=eb1aCount>=3;
     var oEvidenceMaybe=eb1aCount>=2;
-    var o1Ok=oCoreOk&&oEvidenceStrong;
-    var o1Maybe=(oSponsor==='neg'||oContract==='neg'||(hasOSponsor&&hasOProject&&oEvidenceMaybe));
-    var o3Ok=(oFamily==='yes')&&(o1Ok||o1Maybe);
+    var o1Ok=!oSkip&&oCoreOk&&oEvidenceStrong;
+    var o1Maybe=!oSkip&&(oSponsor==='neg'||oContract==='neg'||(hasOSponsor&&hasOProject&&oEvidenceMaybe));
+    var o3Ok=!oSkip&&(oFamily==='yes')&&(o1Ok||o1Maybe);
 
     // Build result programs
     var eb5Status=eb5Ok?'q':(eb5Maybe?'m':'n');
@@ -393,12 +394,12 @@ table.cm td:first-child{text-align:left;font-weight:500}
     if(h1bOk)h1bDetail+='<br><span style="color:#c2410c;font-size:12px">⚠️ FY2027抽签已改革为"一人一签"制度(beneficiary-centric)，减少作弊，真实中签率提升。</span>';
 
     var oName=isO1B?'O-1B 艺术/影视杰出能力':'O-1A 杰出能力';
-    var oStatus=o1Ok?'q':(o1Maybe?'m':'n');
-    var oDetail=o1Ok?('<span class="g">✅ 符合</span><br>'+oName+'需美国雇主/代理人/项目方提交I-129。你已有美国担保方+项目安排，且成就证据达到'+eb1aCount+'项。<br>首次最长<b>3年</b>，后续可按项目1年一续。<br><b>定位：</b>O-1不是绿卡，但适合先赴美开展项目，同时准备EB-1A/NIW绿卡。'):(o1Maybe?('<span class="o">⚠️ 有条件</span><br>'+oName+'接近可行。核心缺口：'+(oSponsor==='no'?'缺美国担保方；':'')+(oContract==='no'?'缺美国项目/合同；':'')+(eb1aCount<3?'成就证据当前'+eb1aCount+'项，建议补到3项以上；':'')+'<br>补齐后可作为快速赴美工作/项目身份。'):'❌ 暂不符合。O-1必须同时具备美国雇主/代理人/项目方 + 足够杰出能力证据。');
-    var o3Status=o3Ok?'q':(oFamily==='yes'?'m':'n');
-    var o3Detail=oFamily==='yes'?(o3Ok?'<span class="g">✅ 可随行</span><br>配偶及21岁以下未婚子女可申请O-3随行。O-3可在美国学习，但<b>不可工作</b>。有效期随O-1主申请人。':'<span class="o">⚠️ 有条件</span><br>需主申请人O-1获批后，配偶及21岁以下未婚子女可申请O-3。O-3不可工作，可学习。'):'❌ 暂无家属随行需求。';
+    var oStatus=oSkip?'n':(o1Ok?'q':(o1Maybe?'m':'n'));
+    var oDetail=oSkip?'用户选择不申请O-1，本项不评估。':(o1Ok?('<span class="g">✅ 符合</span><br>'+oName+'需美国雇主/代理人/项目方提交I-129。你已有美国担保方+项目安排，且成就证据达到'+eb1aCount+'项。<br>首次最长<b>3年</b>，后续可按项目1年一续。<br><b>定位：</b>O-1不是绿卡，但适合先赴美开展项目，同时准备EB-1A/NIW绿卡。'):(o1Maybe?('<span class="o">⚠️ 有条件</span><br>'+oName+'接近可行。核心缺口：'+(oSponsor==='no'?'缺美国担保方；':'')+(oContract==='no'?'缺美国项目/合同；':'')+(eb1aCount<3?'成就证据当前'+eb1aCount+'项，建议补到3项以上；':'')+'<br>补齐后可作为快速赴美工作/项目身份。'):'❌ 暂不符合。O-1必须同时具备美国雇主/代理人/项目方 + 足够杰出能力证据。'));
+    var o3Status=oSkip?'n':(o3Ok?'q':(oFamily==='yes'?'m':'n'));
+    var o3Detail=oSkip?'用户选择不申请O-1，O-3家属随行不适用。':(oFamily==='yes'?(o3Ok?'<span class="g">✅ 可随行</span><br>配偶及21岁以下未婚子女可申请O-3随行。O-3可在美国学习，但<b>不可工作</b>。有效期随O-1主申请人。':'<span class="o">⚠️ 有条件</span><br>需主申请人O-1获批后，配偶及21岁以下未婚子女可申请O-3。O-3不可工作，可学习。'):'❌ 暂无家属随行需求。');
 
-    var comboStatus=(o1Ok||o1Maybe)&&(eb1aOk||niwOk||eb1aMaybe)?'q':((o1Ok||o1Maybe||eb1aOk||niwOk)?'m':'n');
+    var comboStatus=oSkip?'n':((o1Ok||o1Maybe)&&(eb1aOk||niwOk||eb1aMaybe)?'q':((o1Ok||o1Maybe||eb1aOk||niwOk)?'m':'n'));
     var comboDetail=comboStatus==='q'?'<span class="g">✅ 推荐组合</span><br><b>O-1先赴美 + EB-1A/NIW同步准备</b>。O-1解决短期赴美工作/项目身份；EB-1A/NIW解决长期绿卡。<br>证据可共用：奖项、媒体、评审、原创贡献、领导角色、高薪等。<br>适合节奏：先用O-1进入美国项目体系 → 强化履历 → EB-1A/NIW递交I-140。':(comboStatus==='m'?'<span class="o">⚠️ 可作为中期策略</span><br>当前O-1或EB-1A/NIW有一侧条件不足。建议先补齐美国项目方/成就证据/NIW国家利益论证，再做双轨组合。':'❌ 暂不建议。O-1和EB-1A/NIW均需较强证据基础。');
 
     var pg=[
