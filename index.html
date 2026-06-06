@@ -158,18 +158,23 @@ table.cm td:first-child{text-align:left;font-weight:500}
     return (m[id]||{})[v]||v;
   }
 
-  // Radio selection styling
-  D.querySelectorAll('input[type="radio"]').forEach(function(r){
-    r.addEventListener('change',function(){
-      var row=this.closest('.radio-row');
-      row.querySelectorAll('.ropt').forEach(function(l){l.classList.remove('sel');});
-      this.parentElement.classList.add('sel');
-      onChange(this.name,this.value);
-    });
-  });
-  D.querySelectorAll('input[type="checkbox"]').forEach(function(cb){
-    cb.addEventListener('change',function(){
-      this.parentElement.classList.toggle('sel',this.checked);
+  // Radio selection styling (mobile-safe: label click directly toggles hidden input)
+  D.querySelectorAll('.radio-row .ropt').forEach(function(label){
+    label.addEventListener('click',function(e){
+      var input=this.querySelector('input');
+      if(!input)return;
+      if(input.type==='radio'){
+        input.checked=true;
+        var row=this.closest('.radio-row');
+        row.querySelectorAll('.ropt').forEach(function(l){l.classList.remove('sel');});
+        this.classList.add('sel');
+        onChange(input.name,input.value);
+      }else if(input.type==='checkbox'){
+        input.checked=!input.checked;
+        this.classList.toggle('sel',input.checked);
+      }
+      e.preventDefault();
+      e.stopPropagation();
     });
   });
 
