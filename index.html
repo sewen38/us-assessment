@@ -28,7 +28,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Helvetica Neue'
 .radio-row{display:flex;gap:10px;flex-wrap:wrap}
 .radio-row .ropt{flex:1;min-width:80px;padding:10px 16px;border:1.5px solid #ddd;border-radius:8px;text-align:center;cursor:pointer;font-size:14px;background:#fafafa;transition:all .15s;user-select:none}
 .radio-row .ropt:active,.radio-row .ropt.sel{border-color:#2969a8;background:#e8f4fd;font-weight:600;color:#1a3350}
-.radio-row input{display:none}
+.radio-row input{position:absolute;opacity:0;pointer-events:none;width:1px;height:1px}
 .btn{display:block;width:calc(100% - 24px);margin:20px auto;padding:14px;background:linear-gradient(135deg,#1a3350,#2969a8);color:#fff;border:none;border-radius:10px;font-size:16px;font-weight:600;cursor:pointer}
 .btn:active{transform:scale(.98)}
 
@@ -158,24 +158,26 @@ table.cm td:first-child{text-align:left;font-weight:500}
     return (m[id]||{})[v]||v;
   }
 
-  // Radio selection styling (mobile-safe: label click directly toggles hidden input)
+  // Mobile-safe option buttons: do not rely on native hidden input click/change events
+  function selectOption(label){
+    var input=label.querySelector('input');
+    if(!input)return;
+    if(input.type==='radio'){
+      input.checked=true;
+      var row=label.closest('.radio-row');
+      row.querySelectorAll('.ropt').forEach(function(l){l.classList.remove('sel');});
+      label.classList.add('sel');
+      onChange(input.name,input.value);
+    }else if(input.type==='checkbox'){
+      input.checked=!input.checked;
+      label.classList.toggle('sel',input.checked);
+    }
+  }
   D.querySelectorAll('.radio-row .ropt').forEach(function(label){
-    label.addEventListener('click',function(e){
-      var input=this.querySelector('input');
-      if(!input)return;
-      if(input.type==='radio'){
-        input.checked=true;
-        var row=this.closest('.radio-row');
-        row.querySelectorAll('.ropt').forEach(function(l){l.classList.remove('sel');});
-        this.classList.add('sel');
-        onChange(input.name,input.value);
-      }else if(input.type==='checkbox'){
-        input.checked=!input.checked;
-        this.classList.toggle('sel',input.checked);
-      }
-      e.preventDefault();
-      e.stopPropagation();
-    });
+    label.setAttribute('tabindex','0');
+    label.addEventListener('touchstart',function(e){selectOption(this);e.preventDefault();}, {passive:false});
+    label.addEventListener('mousedown',function(e){selectOption(this);e.preventDefault();});
+    label.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){selectOption(this);e.preventDefault();}});
   });
 
   // Show/hide for education-dependent fields
