@@ -75,6 +75,7 @@ table.cm td:first-child{text-align:left;font-weight:500}
 .flow-primary:active{transform:scale(.97)}
 .flow-secondary{background:#eef1f5;color:#555;border:none;border-radius:10px;padding:12px 28px;font-size:14px;cursor:pointer}
 @media(max-width:400px){.radio-row .ropt{min-width:60px;padding:8px 12px;font-size:13px}.card{padding:18px 14px;margin:10px 8px}.header h1{font-size:19px}}
+.project-check-grid{display:flex;flex-direction:column;gap:8px;margin:10px 0}.project-check{display:flex;align-items:flex-start;gap:8px;padding:12px;border:1.5px solid #e5e7eb;border-radius:10px;background:#fafafa;cursor:pointer;font-size:13px;line-height:1.5;transition:all .15s}.project-check:has(input:checked){border-color:#22c55e;background:#f0fdf4}.project-check input[type=checkbox]{margin-top:2px;accent-color:#22c55e;width:16px;height:16px;flex-shrink:0}
 </style>
 </head>
 <body>
@@ -179,19 +180,28 @@ table.cm td:first-child{text-align:left;font-weight:500}
   D.getElementById('nationality').addEventListener('change',function(){D.getElementById('card-e2').style.display=(this.value==='cn')?'block':'none';});
 
   // Navigation functions
-  window.goBack=function(){var D=document;D.getElementById("results").classList.remove("show");D.getElementById("qform").style.display="";setTimeout(function(){D.getElementById("qform").scrollIntoView({behavior:"smooth"});},50);};
-window.goPrevStage=function(){var u=new URL(window.location.href);var ret=u.searchParams.get('return')||'';var batch=u.searchParams.get('batch')||'';var issue=u.searchParams.get('issue')||'';if(batch==='1'&&issue){var base=ret||'https://sewen38.github.io/family-plan/';var sep=base.indexOf('?')>=0?'&':'?';window.location.href=base+sep+'batch=1&issue='+issue;}else if(ret){window.location.href=ret;}else{history.back();}};
-window._selectedSolution='';window._selectedProject='';
-window.selectSolution=function(c){document.querySelectorAll('.choice-card').forEach(function(x){x.classList.remove('sel')});var el=document.querySelector('[data-solution="'+c+'"]');if(el)el.classList.add('sel');document.querySelectorAll('.project-list').forEach(function(x){x.classList.remove('show')});var list=document.getElementById('projects-'+c);if(list)list.classList.add('show');window._selectedSolution=c;};
-window.selectProject=function(el,p){document.querySelectorAll('.project-opt').forEach(function(x){x.classList.remove('sel')});el.classList.add('sel');window._selectedProject=p;};
-window.goExecPlan=function(){if(!window._selectedProject){alert('请先选择项目');return;}var u=new URL(window.location.href);var batch=u.searchParams.get('batch')||'';var issue=u.searchParams.get('issue')||'16';if(batch==='1'&&issue){window.location.href='https://sewen38.github.io/family-plan/batch-summary.html?issue='+issue+'&country=US';return;}window.location.href=execPageUrl+'?issue='+issue+'&solution='+(window._selectedSolution||'A')+'&project='+window._selectedProject;};
+  window.goBack=function(){var D=document;D.getElementById("results").classList.remove("show");D.getElementById("qform").style.display="";setTimeout(function(){D.getElementById("qform").scrollIntoView({behavior:"smooth"});},50);};window.goPrevStage=function(){
+  var u=new URL(window.location.href);
+  var ret=u.searchParams.get('return')||'';
+  if(ret){window.location.href=ret;return;}
+  window.location.href='https://sewen38.github.io/family-plan/?issue='+(u.searchParams.get('issue')||'');
+};
+window.onProjectCheck=function(){};window.onProjectCheck=function(){};
+window.goExecPlan=function(){
+  var checks=document.querySelectorAll('input[name="selProject"]:checked');
+  if(checks.length===0){alert('请至少选择一个通过评估的项目');return;}
+  var projects=Array.from(checks).map(function(c){return c.value;});
+  var u=new URL(window.location.href);
+  var batch=u.searchParams.get('batch')||'';
+  var issue=u.searchParams.get('issue')||'';
+  if(batch==='1'&&issue){
+    try{var bd=JSON.parse(localStorage.getItem('***')||'{}');bd[issue]=bd[issue]||{};bd[issue]['us']={projects:projects,ts:Date.now()};localStorage.setItem('***',JSON.stringify(bd));}catch(e){}
+    var retUrl=u.searchParams.get('return')||'https://sewen38.github.io/family-plan/?batch=1&issue='+issue;
+    window.location.href=retUrl;return;
+  }
+  window.location.href='https://sewen38.github.io/us-assessment/exec.html?issue='+issue+'&projects='+projects.join(',');
+};
 var execPageUrl='https://sewen38.github.io/us-assessment/exec.html';
-
-  window.goPrevStage=function(){var u=new URL(window.location.href);var ret=u.searchParams.get('return')||'';var batch=u.searchParams.get('batch')||'';var issue=u.searchParams.get('issue')||'';if(batch==='1'&&issue){var base=ret||'https://sewen38.github.io/family-plan/';var sep=base.indexOf('?')>=0?'&':'?';window.location.href=base+sep+'batch=1&issue='+issue;}else if(ret){window.location.href=ret;}else{history.length>1?history.back():goBack();}};
-  window._selectedSolution=null;window._selectedProject=null;
-  window.selectSolution=function(code){document.querySelectorAll('.choice-card').forEach(function(x){x.classList.remove('sel');});var el=document.querySelector('[data-solution="'+code+'"]');if(el)el.classList.add('sel');document.querySelectorAll('.project-list').forEach(function(x){x.classList.remove('show');});var list=document.getElementById('projects-'+code);if(list)list.classList.add('show');window._selectedSolution=code;};
-  window.selectProject=function(el,project){document.querySelectorAll('.project-opt').forEach(function(x){x.classList.remove('sel');});el.classList.add('sel');window._selectedProject=project;};
-  window.goExecPlan=function(){if(!window._selectedSolution){alert('请先选择一个可执行/可选方案');return;}if(!window._selectedProject){alert('请先选择具体项目');return;}var u=new URL(window.location.href);var batch=u.searchParams.get('batch')||'';var issue=u.searchParams.get('issue')||'';if(batch==='1'&&issue){window.location.href='https://sewen38.github.io/family-plan/batch-summary.html?issue='+issue+'&country=US';return;}var params=new URLSearchParams({issue:issue,country:'us',solution:window._selectedSolution,project:window._selectedProject,stage:'exec'});window.location.href='https://sewen38.github.io/us-assessment/exec.html?'+params.toString();};
 
   function onChange(n,v){
     if(n==='usdegree')D.getElementById('dt-usdegree').classList.toggle('show',v==='yes');
@@ -254,7 +264,8 @@ var execPageUrl='https://sewen38.github.io/us-assessment/exec.html';
     var eb5Ok=netHigh;var eb5Maybe=netMid;
     var eb1aOk=eb1aCount>=3;var eb1aMaybe=eb1aCount>=2;
     var niwOk=isAdvancedDegree||(edu==='bachelor'&&isExceptionalAbility);
-    var e2Ok=hasE2Passport&&(budgetHigh||budgetMid);var e2Maybe=hasE2Passport;;var e2Blocked=isCN&&!hasE2Passport;
+    var e2Ok=hasE2Passport&&(budgetHigh||budgetMid);var e2Maybe=hasE2Passport;
+var e2Blocked=isCN&&!hasE2Passport;
     var l1Ok=hasUSAffiliate&&hasManager&&has1yrEmploy;var l1Maybe=hasUSAffiliate&&has1yrEmploy&&!hasManager;
     var h1bOk=(isAdvancedDegree||edu==='bachelor')&&hasUSAEmployer;
 
@@ -337,15 +348,20 @@ var execPageUrl='https://sewen38.github.io/us-assessment/exec.html';
 
     // === SOLUTION / PROJECT SELECTION ===
     h+='<div class="rs-card"><h3 style="font-size:16px;margin-bottom:12px;color:#1a3350">✅ 请选择下一阶段执行方案</h3>';
-    h+='<div class="choice-grid">';
-    h+='<div class="choice-card" data-solution="A" onclick="selectSolution(\'A\')"><h4>方案A：EB-1A/NIW/O-1 杰出人才路径</h4><p>适合有学术/专业成就、专利/论文、或美国项目方的客户。无需雇主担保或可O-1先赴美+EB-1A/NIW绿卡组合。</p></div>';
-    h+='<div class="choice-card" data-solution="B" onclick="selectSolution(\'B\')"><h4>方案B：EB-5/E-2 投资移民路径</h4><p>适合资金充足的客户。EB-5投资$80万起全家绿卡，或E-2条约国快速赴美+经营。高净值首选。</p></div>';
-    h+='<div class="choice-card" data-solution="C" onclick="selectSolution(\'C\')"><h4>方案C：L-1/H-1B 雇主/跨国公司路径</h4><p>适合有美国雇主offer或跨国企业资源的客户。L-1跨国调动/H-1B工作签证先登陆，再转绿卡。</p></div>';
+        h+='<div class="rs-card"><h3 style="font-size:16px;margin-bottom:12px;color:#8b1e1e">✅ 通过评估的项目（可多选）</h3>';
+    h+='<div class="project-check-grid">';
+    h+='<label class="project-check"><input type="checkbox" name="selProject" value="us-eb1a" onchange="onProjectCheck()"> EB-1A 杰出人才绿卡 · 无需雇主 · 直接绿卡</label>';
+    h+='<label class="project-check"><input type="checkbox" name="selProject" value="us-niw" onchange="onProjectCheck()"> EB-2 NIW 国家利益豁免 · 硕士+ · 直接绿卡</label>';
+    h+='<label class="project-check"><input type="checkbox" name="selProject" value="us-o1-eb1a" onchange="onProjectCheck()"> O-1快速赴美 + EB-1A/NIW 组合路径</label>';
+    h+='<label class="project-check"><input type="checkbox" name="selProject" value="us-eb5" onchange="onProjectCheck()"> EB-5 投资移民 · $80万起 · 全家绿卡</label>';
+    h+='<label class="project-check"><input type="checkbox" name="selProject" value="us-e2" onchange="onProjectCheck()"> E-2 条约国投资者 · 快速赴美 · 可续签</label>';
+    h+='<label class="project-check"><input type="checkbox" name="selProject" value="us-eb5-e2-combo" onchange="onProjectCheck()"> E-2先赴美 + EB-5后续绿卡 组合</label>';
+    h+='<label class="project-check"><input type="checkbox" name="selProject" value="us-l1" onchange="onProjectCheck()"> L-1 跨国高管/专才 · 关联公司 · 1年后转绿卡</label>';
+    h+='<label class="project-check"><input type="checkbox" name="selProject" value="us-h1b" onchange="onProjectCheck()"> H-1B 工作签证 · 雇主担保 · PERM→绿卡</label>';
+    h+='<label class="project-check"><input type="checkbox" name="selProject" value="us-l1-h1b-combo" onchange="onProjectCheck()"> L-1/H-1B 多路径雇主担保规划</label>';
     h+='</div>';
-    h+='<div id="projects-A" class="project-list"><div class="stage-hint">请选择项目：</div><div class="project-opt" onclick="selectProject(this,\'us-eb1a\')">EB-1A 杰出人才绿卡 · 无需雇主 · 直接绿卡</div><div class="project-opt" onclick="selectProject(this,\'us-niw\')">EB-2 NIW 国家利益豁免 · 硕士+ · 直接绿卡</div><div class="project-opt" onclick="selectProject(this,\'us-o1-eb1a\')">O-1快速赴美 + EB-1A/NIW 组合路径</div></div>';
-    h+='<div id="projects-B" class="project-list"><div class="stage-hint">请选择项目：</div><div class="project-opt" onclick="selectProject(this,\'us-eb5\')">EB-5 投资移民 · $80万起 · 全家绿卡</div><div class="project-opt" onclick="selectProject(this,\'us-e2\')">E-2 条约国投资者 · 快速赴美 · 可续签</div><div class="project-opt" onclick="selectProject(this,\'us-eb5-e2-combo\')">E-2先赴美 + EB-5后续绿卡 组合</div></div>';
-    h+='<div id="projects-C" class="project-list"><div class="stage-hint">请选择项目：</div><div class="project-opt" onclick="selectProject(this,\'us-l1\')">L-1 跨国高管/专才 · 关联公司 · 1年后转绿卡</div><div class="project-opt" onclick="selectProject(this,\'us-h1b\')">H-1B 工作签证 · 雇主担保 · PERM→绿卡</div><div class="project-opt" onclick="selectProject(this,\'us-l1-h1b-combo\')">L-1/H-1B 多路径雇主担保规划</div></div>';
     h+='<div class="flow-actions"><button class="flow-secondary" onclick="goPrevStage()">返回上一阶段</button><button class="flow-secondary" onclick="goBack()">返回修改问卷</button><button class="flow-primary" onclick="goExecPlan()">下一阶段</button></div>';
+    h+='</div>';
     h+='</div>';
 
     D.getElementById('results').innerHTML=h;
