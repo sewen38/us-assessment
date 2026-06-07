@@ -348,20 +348,29 @@ var e2Blocked=isCN&&!hasE2Passport;
 
     // === SOLUTION / PROJECT SELECTION ===
     h+='<div class="rs-card"><h3 style="font-size:16px;margin-bottom:12px;color:#1a3350">✅ 请选择下一阶段执行方案</h3>';
-        h+='<div class="rs-card"><h3 style="font-size:16px;margin-bottom:12px;color:#8b1e1e">✅ 通过评估的项目（可多选）</h3>';
-    h+='<div class="project-check-grid">';
-    h+='<label class="project-check"><input type="checkbox" name="selProject" value="us-eb1a" onchange="onProjectCheck()"> EB-1A 杰出人才绿卡 · 无需雇主 · 直接绿卡</label>';
-    h+='<label class="project-check"><input type="checkbox" name="selProject" value="us-niw" onchange="onProjectCheck()"> EB-2 NIW 国家利益豁免 · 硕士+ · 直接绿卡</label>';
-    h+='<label class="project-check"><input type="checkbox" name="selProject" value="us-o1-eb1a" onchange="onProjectCheck()"> O-1快速赴美 + EB-1A/NIW 组合路径</label>';
-    h+='<label class="project-check"><input type="checkbox" name="selProject" value="us-eb5" onchange="onProjectCheck()"> EB-5 投资移民 · $80万起 · 全家绿卡</label>';
-    h+='<label class="project-check"><input type="checkbox" name="selProject" value="us-e2" onchange="onProjectCheck()"> E-2 条约国投资者 · 快速赴美 · 可续签</label>';
-    h+='<label class="project-check"><input type="checkbox" name="selProject" value="us-eb5-e2-combo" onchange="onProjectCheck()"> E-2先赴美 + EB-5后续绿卡 组合</label>';
-    h+='<label class="project-check"><input type="checkbox" name="selProject" value="us-l1" onchange="onProjectCheck()"> L-1 跨国高管/专才 · 关联公司 · 1年后转绿卡</label>';
-    h+='<label class="project-check"><input type="checkbox" name="selProject" value="us-h1b" onchange="onProjectCheck()"> H-1B 工作签证 · 雇主担保 · PERM→绿卡</label>';
-    h+='<label class="project-check"><input type="checkbox" name="selProject" value="us-l1-h1b-combo" onchange="onProjectCheck()"> L-1/H-1B 多路径雇主担保规划</label>';
-    h+='</div>';
-    h+='<div class="flow-actions"><button class="flow-secondary" onclick="goPrevStage()">返回上一阶段</button><button class="flow-secondary" onclick="goBack()">返回修改问卷</button><button class="flow-primary" onclick="goExecPlan()">下一阶段</button></div>';
-    h+='</div>';
+    // Build project options from evaluation statuses
+    var projectOpts=[];
+    projectOpts.push({v:'us-eb1a', s:eb1aStatus, d:'EB-1A 杰出人才绿卡 · 无需雇主 · 直接绿卡'});
+    projectOpts.push({v:'us-niw', s:niwStatus, d:'EB-2 NIW 国家利益豁免 · 硕士+ · 直接绿卡'});
+    projectOpts.push({v:'us-o1-eb1a', s:comboStatus, d:'O-1快速赴美 + EB-1A/NIW 组合路径'});
+    projectOpts.push({v:'us-eb5', s:eb5Status, d:'EB-5 投资移民 · $80万起 · 全家绿卡'});
+    projectOpts.push({v:'us-e2', s:e2Status, d:'E-2 条约国投资者 · 快速赴美 · 可续签'});
+    projectOpts.push({v:'us-eb5-e2-combo', s:(eb5Status==='q'||eb5Status==='m')&&(e2Status==='q'||e2Status==='m')?'q':'n', d:'E-2先赴美 + EB-5后续绿卡 组合'});
+    projectOpts.push({v:'us-l1', s:l1Status, d:'L-1 跨国高管/专才 · 关联公司 · 1年后转绿卡'});
+    projectOpts.push({v:'us-h1b', s:h1bStatus, d:'H-1B 工作签证 · 雇主担保 · PERM→绿卡'});
+    projectOpts.push({v:'us-l1-h1b-combo', s:(l1Status==='q'||l1Status==='m')&&(h1bStatus==='q'||h1bStatus==='m')?'q':'n', d:'L-1/H-1B 多路径雇主担保规划'});
+    var eligible=projectOpts.filter(function(p){return p.s==='q'||p.s==='m';});
+    if(eligible.length>0){
+      h+='<div class="rs-card"><h3 style="font-size:16px;margin-bottom:12px;color:#8b1e1e">✅ 通过评估的项目（可多选）</h3>';
+      h+='<div class="project-check-grid">';
+      eligible.forEach(function(p){
+        var note=p.s==='m'?' <span style="color:red;font-weight:600">⚠️ 有条件</span>':'';
+        h+='<label class="project-check"><input type="checkbox" name="selProject" value="'+p.v+'" onchange="onProjectCheck()"> '+p.d+note+'</label>';
+      });
+      h+='</div>';
+      h+='<div class="flow-actions"><button class="flow-secondary" onclick="goPrevStage()">返回上一阶段</button><button class="flow-secondary" onclick="goBack()">返回修改问卷</button><button class="flow-primary" onclick="goExecPlan()">下一阶段</button></div>';
+      h+='</div>';
+    }
     h+='</div>';
 
     D.getElementById('results').innerHTML=h;
