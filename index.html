@@ -58,6 +58,7 @@ table.cm td:first-child{text-align:left;font-weight:500}
 .btn-sm{display:inline-block;padding:10px 20px;margin:4px 0;background:#eef1f5;color:#555;border:none;border-radius:8px;font-size:13px;cursor:pointer}
 .spinner{display:inline-block;width:12px;height:12px;border:2px solid #ddd;border-top-color:#2969a8;border-radius:50%;animation:spin .8s linear infinite;margin-right:6px}
 @keyframes spin{to{transform:rotate(360deg)}}
+.flow-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.flow-actions button{flex:1;min-width:110px;border:0;border-radius:10px;padding:12px;font-size:14px;font-weight:800;cursor:pointer}.flow-primary{background:linear-gradient(135deg,#1a3350,#2969a8);color:#fff}.flow-secondary{background:#eef1f5;color:#555}.choice-grid{display:grid;gap:10px}.choice-card{border:2px solid #e5e7eb;border-radius:12px;padding:13px;background:#fafafa;cursor:pointer}.choice-card.sel{border-color:#2969a8;background:#e8f4fd}.choice-card h4{font-size:15px;color:#1a3350;margin-bottom:4px}.choice-card p{font-size:12px;color:#666}.project-list{display:none;margin-top:12px}.project-list.show{display:block}.project-opt{border:1.5px solid #e5e7eb;border-radius:10px;padding:11px;margin-bottom:8px;background:#fff;cursor:pointer}.project-opt.sel{border-color:#22c55e;background:#f0fdf4}.stage-hint{font-size:12px;color:#888;margin-top:6px}
 @media(max-width:400px){.radio-row .ropt{min-width:60px;padding:8px 12px;font-size:13px}.card{padding:18px 14px;margin:10px 8px}.header h1{font-size:19px}}
 </style>
 </head>
@@ -70,8 +71,8 @@ table.cm td:first-child{text-align:left;font-weight:500}
 <div class="card"><h2><span class="num">1</span> 基本信息</h2>
 <div class="fg"><label class="q">年龄</label><select id="age"><option value="">请选择</option><option value="18-30">18-30岁</option><option value="31-40">31-40岁</option><option value="41-50">41-50岁</option><option value="51+">51岁及以上</option></select></div>
 <div class="fg"><label class="q">国籍/身份</label><select id="nationality"><option value="">请选择</option><option value="cn">中国籍（未取得外国永居）</option><option value="cn-foreign">中国籍+已取得外国永居</option><option value="foreign">外国国籍</option></select></div>
-<div class="fg"><label class="q">是否有无犯罪记录<span class="hint">(选择“是”表示无犯罪记录；所有美国移民项目均要求无犯罪记录)</span></label><div class="radio-row"><label class="ropt"><input type="radio" name="nocrim" value="yes"> 是</label><label class="ropt"><input type="radio" name="nocrim" value="no"> 否</label></div></div>
-<div class="fg"><label class="q">是否有健康证明<span class="hint">(选择“是”表示无重大传染性疾病；美国移民体检I-693要求)</span></label><div class="radio-row"><label class="ropt"><input type="radio" name="health" value="yes"> 是</label><label class="ropt"><input type="radio" name="health" value="no"> 否</label></div></div>
+<div class="fg"><label class="q">是否有无犯罪记录<span class="hint">(选择"是"表示无犯罪记录；所有美国移民项目均要求无犯罪记录)</span></label><div class="radio-row"><label class="ropt"><input type="radio" name="nocrim" value="yes"> 是</label><label class="ropt"><input type="radio" name="nocrim" value="no"> 否</label></div></div>
+<div class="fg"><label class="q">是否有健康证明<span class="hint">(选择"是"表示无重大传染性疾病；美国移民体检I-693要求)</span></label><div class="radio-row"><label class="ropt"><input type="radio" name="health" value="yes"> 是</label><label class="ropt"><input type="radio" name="health" value="no"> 否</label></div></div>
 </div>
 
 <div class="card"><h2><span class="num">2</span> 学历背景</h2>
@@ -89,25 +90,22 @@ table.cm td:first-child{text-align:left;font-weight:500}
 <div id="dt-mnc" class="detail-input"><span class="label-sm">公司及在职年限：</span><input type="text" id="mnc-info" placeholder="例如：Google中国 高级工程师 2年"></div></div>
 
 <h3 class="sub">🎖️ 杰出成就评估（EB-1A 10选3标准）</h3>
-<div class="fg"><label class="q">是否获得过全国性或国际性重要奖项？<span class="hint">(行业大奖、国家级荣誉等)</span></label><div class="radio-row"><label class="ropt"><input type="radio" name="eb1a_awards" value="yes"> 是</label><label class="ropt"><input type="radio" name="eb1a_awards" value="no"> 否</label></div>
+<div class="fg"><label class="q">是否获得过全国性或国际性重要奖项？</label><div class="radio-row"><label class="ropt"><input type="radio" name="eb1a_awards" value="yes"> 是</label><label class="ropt"><input type="radio" name="eb1a_awards" value="no"> 否</label></div>
 <div id="dt-awards" class="detail-input"><span class="label-sm">奖项名称：</span><input type="text" id="awards-info" placeholder="例如：国家科技进步奖 / 红点设计奖"></div></div>
-<div class="fg"><label class="q">是否属于要求杰出成就的专业协会会员？<span class="hint">(需经遴选入会，非普通付费会员)</span></label><div class="radio-row"><label class="ropt"><input type="radio" name="eb1a_membership" value="yes"> 是</label><label class="ropt"><input type="radio" name="eb1a_membership" value="no"> 否</label></div>
-<div id="dt-membership" class="detail-input"><span class="label-sm">协会名称：</span><input type="text" id="membership-info" placeholder="例如：IEEE Fellow / 中国工程院院士"></div></div>
-<div class="fg"><label class="q">是否曾被主要媒体报道过？<span class="hint">(主流媒体对你个人或工作的专题报道)</span></label><div class="radio-row"><label class="ropt"><input type="radio" name="eb1a_media" value="yes"> 是</label><label class="ropt"><input type="radio" name="eb1a_media" value="no"> 否</label></div>
-<div id="dt-media" class="detail-input"><span class="label-sm">媒体名称：</span><input type="text" id="media-info" placeholder="例如：华尔街日报 / 央视"></div></div>
-<div class="fg"><label class="q">是否曾担任专业领域评审/评委？<span class="hint">(论文审稿、项目评审、比赛评委等)</span></label><div class="radio-row"><label class="ropt"><input type="radio" name="eb1a_judging" value="yes"> 是</label><label class="ropt"><input type="radio" name="eb1a_judging" value="no"> 否</label></div></div>
-<div class="fg"><label class="q">是否有原创性重大贡献？<span class="hint">(专利、核心技术、原创理论、行业标准等)</span></label><div class="radio-row"><label class="ropt"><input type="radio" name="eb1a_original" value="yes"> 是</label><label class="ropt"><input type="radio" name="eb1a_original" value="no"> 否</label></div>
-<div id="dt-original" class="detail-input"><span class="label-sm">简述贡献：</span><input type="text" id="original-info" placeholder="例如：5项发明专利 / 行业标准制定"></div></div>
-<div class="fg"><label class="q">是否在专业期刊发表过学术文章？<span class="hint">(SCI/EI论文、行业核心期刊等)</span></label><div class="radio-row"><label class="ropt"><input type="radio" name="eb1a_publications" value="yes"> 是</label><label class="ropt"><input type="radio" name="eb1a_publications" value="no"> 否</label></div></div>
-<div class="fg"><label class="q">是否在知名机构担任领导或关键角色？<span class="hint">(上市公司/知名机构的高管、首席科学家等)</span></label><div class="radio-row"><label class="ropt"><input type="radio" name="eb1a_leading" value="yes"> 是</label><label class="ropt"><input type="radio" name="eb1a_leading" value="no"> 否</label></div></div>
-<div class="fg"><label class="q">薪资/收入是否显著高于同行？<span class="hint">(同行业同地区前10%水平)</span></label><div class="radio-row"><label class="ropt"><input type="radio" name="eb1a_salary" value="yes"> 是</label><label class="ropt"><input type="radio" name="eb1a_salary" value="no"> 否</label></div></div>
+<div class="fg"><label class="q">是否属于要求杰出成就的专业协会会员？<span class="hint">(需遴选入会，非普通付费会员)</span></label><div class="radio-row"><label class="ropt"><input type="radio" name="eb1a_membership" value="yes"> 是</label><label class="ropt"><input type="radio" name="eb1a_membership" value="no"> 否</label></div></div>
+<div class="fg"><label class="q">是否曾被主要媒体报道过？</label><div class="radio-row"><label class="ropt"><input type="radio" name="eb1a_media" value="yes"> 是</label><label class="ropt"><input type="radio" name="eb1a_media" value="no"> 否</label></div></div>
+<div class="fg"><label class="q">是否曾担任专业领域评审/评委？</label><div class="radio-row"><label class="ropt"><input type="radio" name="eb1a_judging" value="yes"> 是</label><label class="ropt"><input type="radio" name="eb1a_judging" value="no"> 否</label></div></div>
+<div class="fg"><label class="q">是否有原创性重大贡献？<span class="hint">(专利、核心技术、原创理论、行业标准等)</span></label><div class="radio-row"><label class="ropt"><input type="radio" name="eb1a_original" value="yes"> 是</label><label class="ropt"><input type="radio" name="eb1a_original" value="no"> 否</label></div></div>
+<div class="fg"><label class="q">是否在专业期刊发表过学术文章？</label><div class="radio-row"><label class="ropt"><input type="radio" name="eb1a_publications" value="yes"> 是</label><label class="ropt"><input type="radio" name="eb1a_publications" value="no"> 否</label></div></div>
+<div class="fg"><label class="q">是否在知名机构担任领导或关键角色？</label><div class="radio-row"><label class="ropt"><input type="radio" name="eb1a_leading" value="yes"> 是</label><label class="ropt"><input type="radio" name="eb1a_leading" value="no"> 否</label></div></div>
+<div class="fg"><label class="q">薪资/收入是否显著高于同行？</label><div class="radio-row"><label class="ropt"><input type="radio" name="eb1a_salary" value="yes"> 是</label><label class="ropt"><input type="radio" name="eb1a_salary" value="no"> 否</label></div></div>
 </div>
 
 <div class="card"><h2><span class="num">4</span> O-1 杰出能力签证专项</h2>
 <div class="fg"><label class="q">申请人主要领域</label><select id="o_category"><option value="">请选择</option><option value="science">科学/技术/教育/研究</option><option value="business">商业/企业家/高管</option><option value="sports">体育/竞技</option><option value="arts">艺术/设计/内容创作</option><option value="film">影视/演艺/制作</option><option value="none">不申请</option></select></div>
-<div class="fg"><label class="q">是否已有美国雇主、美国代理人或美国项目方愿意担保/提交I-129？<span class="hint">(O-1必须由美国雇主/代理人/项目方申请，不能纯个人自递)</span></label><div class="radio-row"><label class="ropt"><input type="radio" name="o_sponsor" value="yes"> 是</label><label class="ropt"><input type="radio" name="o_sponsor" value="neg"> 洽谈中</label><label class="ropt"><input type="radio" name="o_sponsor" value="no"> 否</label></div></div>
+<div class="fg"><label class="q">是否已有美国雇主、代理人或项目方愿意担保/提交I-129？</label><div class="radio-row"><label class="ropt"><input type="radio" name="o_sponsor" value="yes"> 是</label><label class="ropt"><input type="radio" name="o_sponsor" value="neg"> 洽谈中</label><label class="ropt"><input type="radio" name="o_sponsor" value="no"> 否</label></div></div>
 <div class="fg"><label class="q">是否已有美国项目合同/邀请/演出/咨询/任职安排？</label><div class="radio-row"><label class="ropt"><input type="radio" name="o_contract" value="yes"> 是</label><label class="ropt"><input type="radio" name="o_contract" value="neg"> 洽谈中</label><label class="ropt"><input type="radio" name="o_contract" value="no"> 否</label></div></div>
-<div class="fg"><label class="q">是否需要配偶/21岁以下未婚子女随行？<span class="hint">(O-3家属可随行和学习，但不可工作)</span></label><div class="radio-row"><label class="ropt"><input type="radio" name="o_family" value="yes"> 是</label><label class="ropt"><input type="radio" name="o_family" value="no"> 否</label></div></div>
+<div class="fg"><label class="q">是否需要配偶/21岁以下未婚子女随行？<span class="hint">(O-3家属可随行和学习，不可工作)</span></label><div class="radio-row"><label class="ropt"><input type="radio" name="o_family" value="yes"> 是</label><label class="ropt"><input type="radio" name="o_family" value="no"> 否</label></div></div>
 </div>
 
 <div class="card"><h2><span class="num">5</span> 资产与投资能力</h2>
@@ -117,7 +115,7 @@ table.cm td:first-child{text-align:left;font-weight:500}
 </div>
 
 <div class="card" id="card-e2" style="display:none"><h2><span class="num">6</span> E-2 条约国相关<span class="hint" style="display:inline;font-weight:400">(中国籍申请人专项)</span></h2>
-<div class="fg"><label class="q">是否持有第三国（E-2条约国）国籍？<span class="hint">(如：格林纳达、土耳其、葡萄牙、韩国、日本、加拿大等80+国家。中国大陆不是条约国)</span></label><div class="radio-row"><label class="ropt"><input type="radio" name="e2_citizen" value="yes"> 是，已获得</label><label class="ropt"><input type="radio" name="e2_citizen" value="no"> 否</label><label class="ropt"><input type="radio" name="e2_citizen" value="plan"> 计划申请中</label></div>
+<div class="fg"><label class="q">是否持有第三国（E-2条约国）国籍？<span class="hint">(格林纳达、土耳其、葡萄牙、韩国、日本、加拿大等80+国家。中国大陆不是条约国)</span></label><div class="radio-row"><label class="ropt"><input type="radio" name="e2_citizen" value="yes"> 是，已获得</label><label class="ropt"><input type="radio" name="e2_citizen" value="no"> 否</label><label class="ropt"><input type="radio" name="e2_citizen" value="plan"> 计划申请中</label></div>
 <div id="dt-e2" class="detail-input"><span class="label-sm">条约国名称及获取时间：</span><input type="text" id="e2-info" placeholder="例如：格林纳达 2024年 / 土耳其 投资入籍"></div></div>
 </div>
 
@@ -150,280 +148,142 @@ table.cm td:first-child{text-align:left;font-weight:500}
   function S(id){var e=D.getElementById(id);return e?e.value:'';}
   function I(id){var e=D.getElementById(id);return e?e.value.trim():'';}
   function Y(v){return v==='yes'?'是':v==='no'?'否':(v||'未填');}
-  function L(id,v){
-    var m={
-      'age':{'18-30':'18-30岁','31-40':'31-40岁','41-50':'41-50岁','51+':'51岁及以上'},
-      'nationality':{'cn':'中国籍（未取得外国永居）','cn-foreign':'中国籍+已取得外国永居','foreign':'外国国籍'},
-      'education':{'doctor':'博士','master':'硕士','bachelor':'学士（本科）','associate':'大专/副学士','highschool':'高中及以下'},
-      'phd_field':{'stem':'STEM','business':'商业/金融/管理','medical':'医学/生命科学','law':'法律','arts':'艺术/人文/社科','other':'其他'},
-      'workyears':{'0-2':'0-2年','3-5':'3-5年','5-9':'5-9年','10+':'10年及以上'},
-      'networth':{'lt500k':'低于50万美元','500k-1m':'50万-100万美元','1m-5m':'100万-500万美元','gte5m':'500万美元及以上'},
-      'bizscale':{'small':'小型（<50万）','medium':'中型（50万-500万）','large':'大型（>500万）'},
-      'english':{'native':'精通','good':'良好','basic':'一般','none':'基础/不会'},
-      'budget':{'lt100k':'低于10万美元','100k-500k':'10万-50万美元','500k-1m':'50万-100万美元','gte1m':'100万美元及以上'},
-      'o_category':{'science':'科学/技术/教育/研究','business':'商业/企业家/高管','sports':'体育/竞技','arts':'艺术/设计/内容创作','film':'影视/演艺/制作','none':'不申请'}
-    };
-    return (m[id]||{})[v]||v;
-  }
+  function L(id,v){var m={'age':{'18-30':'18-30岁','31-40':'31-40岁','41-50':'41-50岁','51+':'51岁及以上'},'nationality':{'cn':'中国籍（未取得外国永居）','cn-foreign':'中国籍+已取得外国永居','foreign':'外国国籍'},'education':{'doctor':'博士','master':'硕士','bachelor':'学士','associate':'大专/副学士','highschool':'高中及以下'},'phd_field':{'stem':'STEM','business':'商业/金融','medical':'医学/生命科学','law':'法律','arts':'艺术/人文','other':'其他'},'workyears':{'0-2':'0-2年','3-5':'3-5年','5-9':'5-9年','10+':'10年+'},'networth':{'lt500k':'低于50万','500k-1m':'50万-100万','1m-5m':'100万-500万','gte5m':'500万+'},'english':{'native':'精通','good':'良好','basic':'一般','none':'基础'},'budget':{'lt100k':'低于10万','100k-500k':'10万-50万','500k-1m':'50万-100万','gte1m':'100万+'},'o_category':{'science':'科学/技术','business':'商业/高管','sports':'体育','arts':'艺术/设计','film':'影视/演艺','none':'不申请'},'bizscale':{'small':'小型','medium':'中型','large':'大型'}};return(m[id]||{})[v]||v;}
 
-  // Mobile-safe option buttons: do not rely on native hidden input click/change events
+  var EB1A_FIELDS=['eb1a_awards','eb1a_membership','eb1a_media','eb1a_judging','eb1a_original','eb1a_publications','eb1a_leading','eb1a_salary'];
+
   function selectOption(label){
     var input=label.querySelector('input');
     if(!input)return;
-    if(input.type==='radio'){
-      input.checked=true;
-      var row=label.closest('.radio-row');
-      row.querySelectorAll('.ropt').forEach(function(l){l.classList.remove('sel');});
-      label.classList.add('sel');
-      onChange(input.name,input.value);
-    }else if(input.type==='checkbox'){
-      input.checked=!input.checked;
-      label.classList.toggle('sel',input.checked);
-    }
+    if(input.type==='radio'){input.checked=true;var row=label.closest('.radio-row');row.querySelectorAll('.ropt').forEach(function(l){l.classList.remove('sel');});label.classList.add('sel');onChange(input.name,input.value);}
+    else if(input.type==='checkbox'){input.checked=!input.checked;label.classList.toggle('sel',input.checked);}
   }
-  D.querySelectorAll('.radio-row .ropt').forEach(function(label){
-    label.setAttribute('tabindex','0');
-    label.addEventListener('touchstart',function(e){selectOption(this);e.preventDefault();}, {passive:false});
-    label.addEventListener('mousedown',function(e){selectOption(this);e.preventDefault();});
-    label.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){selectOption(this);e.preventDefault();}});
-  });
+  D.querySelectorAll('.radio-row .ropt').forEach(function(label){label.setAttribute('tabindex','0');label.addEventListener('touchstart',function(e){selectOption(this);e.preventDefault();},{passive:false});label.addEventListener('mousedown',function(e){selectOption(this);e.preventDefault();});label.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){selectOption(this);e.preventDefault();}});});
 
-  // Show/hide for education-dependent fields
-  D.getElementById('education').addEventListener('change',function(){
-    var v=this.value;
-    D.getElementById('fg-field').style.display=(v==='master'||v==='doctor')?'block':'none';
-  });
+  D.getElementById('education').addEventListener('change',function(){var v=this.value;D.getElementById('fg-field').style.display=(v==='master'||v==='doctor')?'block':'none';});
+  D.getElementById('nationality').addEventListener('change',function(){D.getElementById('card-e2').style.display=(this.value==='cn')?'block':'none';});
 
-  // Show/hide E-2 card based on nationality
-  D.getElementById('nationality').addEventListener('change',function(){
-    var v=this.value;
-    D.getElementById('card-e2').style.display=(v==='cn')?'block':'none';
-  });
-
+  // Navigation functions
   window.goBack=function(){var D=document;D.getElementById("results").classList.remove("show");D.getElementById("qform").style.display="";setTimeout(function(){D.getElementById("qform").scrollIntoView({behavior:"smooth"});},50);};
+  window.goPrevStage=function(){var u=new URL(window.location.href);var ret=u.searchParams.get('return')||'';if(ret){window.location.href=ret;}else{history.length>1?history.back():goBack();}};
+  window._selectedSolution=null;window._selectedProject=null;
+  window.selectSolution=function(code){document.querySelectorAll('.choice-card').forEach(function(x){x.classList.remove('sel');});var el=document.querySelector('[data-solution="'+code+'"]');if(el)el.classList.add('sel');document.querySelectorAll('.project-list').forEach(function(x){x.classList.remove('show');});var list=document.getElementById('projects-'+code);if(list)list.classList.add('show');window._selectedSolution=code;};
+  window.selectProject=function(el,project){document.querySelectorAll('.project-opt').forEach(function(x){x.classList.remove('sel');});el.classList.add('sel');window._selectedProject=project;};
+  window.goExecPlan=function(){if(!window._selectedSolution){alert('请先选择一个可执行/可选方案');return;}if(!window._selectedProject){alert('请先选择具体项目');return;}var u=new URL(window.location.href);var issue=u.searchParams.get('issue')||'';var params=new URLSearchParams({issue:issue,country:'us',solution:window._selectedSolution,project:window._selectedProject,stage:'exec'});window.location.href='https://sewen38.github.io/us-assessment/exec.html?'+params.toString();};
+
   function onChange(n,v){
     if(n==='usdegree')D.getElementById('dt-usdegree').classList.toggle('show',v==='yes');
     if(n==='manager')D.getElementById('dt-manager').classList.toggle('show',v==='yes');
     if(n==='mnc')D.getElementById('dt-mnc').classList.toggle('show',v==='yes');
     if(n==='eb1a_awards')D.getElementById('dt-awards').classList.toggle('show',v==='yes');
-    if(n==='eb1a_membership')D.getElementById('dt-membership').classList.toggle('show',v==='yes');
-    if(n==='eb1a_media')D.getElementById('dt-media').classList.toggle('show',v==='yes');
-    if(n==='eb1a_original')D.getElementById('dt-original').classList.toggle('show',v==='yes');
     if(n==='bizowner')D.getElementById('fg-bizdetail').style.display=v==='yes'?'block':'none';
     if(n==='e2_citizen')D.getElementById('dt-e2').classList.toggle('show',v==='yes'||v==='plan');
     if(n==='usa_affiliate')D.getElementById('dt-affiliate').classList.toggle('show',v==='yes');
   }
 
-  // EB-1A criteria names for validation
-  var EB1A_FIELDS=['eb1a_awards','eb1a_membership','eb1a_media','eb1a_judging','eb1a_original','eb1a_publications','eb1a_leading','eb1a_salary'];
-
   window.submitForm=function(){
     var age=S('age'),nat=S('nationality'),nocrim=R('nocrim'),health=R('health');
     var edu=S('education'),phdField=S('phd_field'),usdegree=R('usdegree');
     var worky=S('workyears'),manager=R('manager'),mnc=R('mnc');
-    var eb1a={};
-    EB1A_FIELDS.forEach(function(f){eb1a[f]=R(f);});
+    var eb1a={};EB1A_FIELDS.forEach(function(f){eb1a[f]=R(f);});
     var oCategory=S('o_category'),oSponsor=R('o_sponsor'),oContract=R('o_contract'),oFamily=R('o_family');
     var networth=S('networth'),bizowner=R('bizowner'),bizscale=S('bizscale');
     var e2Citizen=R('e2_citizen');
     var usemp=R('usemp'),usaAffiliate=R('usa_affiliate'),employ1yr=R('employ1yr');
-    var english=S('english');
-    var budget=S('budget');
+    var english=S('english');var budget=S('budget');
 
-    // Validation
     var missing=[];
-    if(!age)missing.push('年龄');
-    if(!nat)missing.push('国籍');
-    if(!nocrim)missing.push('犯罪记录');
-    if(!health)missing.push('健康');
-    if(!edu)missing.push('学历');
-    if(!usdegree)missing.push('美国学位');
-    if(!worky)missing.push('工作经验');
-    if(!manager)missing.push('管理经验');
-    if(!mnc)missing.push('跨国公司');
-    if(!oCategory)missing.push('O-1领域');
-    if(oCategory!=='none'&&!oSponsor)missing.push('O-1担保方');
-    if(oCategory!=='none'&&!oContract)missing.push('O-1项目合同');
-    if(oCategory!=='none'&&!oFamily)missing.push('O-3家属随行');
-    if(!networth)missing.push('净资产');
-    if(!bizowner)missing.push('业务实体');
-    if(!usemp)missing.push('美国雇主');
-    if(!usaAffiliate)missing.push('关联公司');
-    if(!employ1yr)missing.push('在职年限');
-    if(!english)missing.push('英文水平');
-    if(!budget)missing.push('预算');
+    if(!age)missing.push('年龄');if(!nat)missing.push('国籍');if(!nocrim)missing.push('犯罪记录');if(!health)missing.push('健康');
+    if(!edu)missing.push('学历');if(!usdegree)missing.push('美国学位');if(!worky)missing.push('工作经验');
+    if(!manager)missing.push('管理经验');if(!mnc)missing.push('跨国公司');
+    if(!oCategory)missing.push('O-1领域');if(!networth)missing.push('净资产');if(!bizowner)missing.push('业务实体');
+    if(!usemp)missing.push('美国雇主');if(!usaAffiliate)missing.push('关联公司');if(!employ1yr)missing.push('在职年限');
+    if(!english)missing.push('英文水平');if(!budget)missing.push('预算');
     EB1A_FIELDS.forEach(function(f){if(!eb1a[f])missing.push(f==='eb1a_awards'?'奖项':f==='eb1a_membership'?'协会':f==='eb1a_media'?'报道':f==='eb1a_judging'?'评审':f==='eb1a_original'?'贡献':f==='eb1a_publications'?'论文':f==='eb1a_leading'?'领导角色':'高薪');});
     if(nat==='cn'&&!e2Citizen)missing.push('E-2条约国');
+    if(oCategory!=='none'){if(!oSponsor)missing.push('O-1担保方');if(!oContract)missing.push('O-1项目合同');if(!oFamily)missing.push('O-3家属');}
 
-    if(missing.length>0){
-      alert('请完成以下未填项：\n'+missing.slice(0,8).join('、')+(missing.length>8?' 等共'+missing.length+'项':''));
-      return;
-    }
+    if(missing.length>0){alert('请完成以下未填项：\n'+missing.slice(0,8).join('、')+(missing.length>8?' 等共'+missing.length+'项':''));return;}
 
-    var w=D.getElementById('results');
-    D.getElementById('qform').style.display='none';
+    var w=D.getElementById('results');D.getElementById('qform').style.display='none';
     w.innerHTML='<div class="rs-card" style="text-align:center;padding:50px 20px"><div style="font-size:40px">📤</div><h3>已提交</h3><p style="color:#888;font-size:13px;margin:6px 0"><span class="spinner"></span>正在分析评估...</p></div>';
     w.classList.add('show');w.scrollIntoView({behavior:'smooth'});
 
-    // Remote submit
-    var data={
-      age:L('age',age), nationality:L('nationality',nat), nocrim:Y(nocrim), health:Y(health),
-      education:L('education',edu),
-      phd_field:(edu==='master'||edu==='doctor')?L('phd_field',phdField):'不适用',
-      usdegree:Y(usdegree)+(usdegree==='yes'?'('+I('usdegree-name')+')':''),
-      workyears:L('workyears',worky),
-      manager:Y(manager)+(manager==='yes'?'('+I('manager-info')+')':''),
-      mnc:Y(mnc)+(mnc==='yes'?'('+I('mnc-info')+')':''),
-      eb1a_awards:Y(eb1a.eb1a_awards)+(eb1a.eb1a_awards==='yes'?'('+I('awards-info')+')':''),
-      eb1a_membership:Y(eb1a.eb1a_membership)+(eb1a.eb1a_membership==='yes'?'('+I('membership-info')+')':''),
-      eb1a_media:Y(eb1a.eb1a_media)+(eb1a.eb1a_media==='yes'?'('+I('media-info')+')':''),
-      eb1a_judging:Y(eb1a.eb1a_judging),
-      eb1a_original:Y(eb1a.eb1a_original)+(eb1a.eb1a_original==='yes'?'('+I('original-info')+')':''),
-      eb1a_publications:Y(eb1a.eb1a_publications),
-      eb1a_leading:Y(eb1a.eb1a_leading),
-      eb1a_salary:Y(eb1a.eb1a_salary),
-      o_category:L('o_category',oCategory),
-      o_sponsor:{yes:'是，已有担保方',neg:'洽谈中',no:'否'}[oSponsor]||oSponsor,
-      o_contract:{yes:'是，已有项目/合同',neg:'洽谈中',no:'否'}[oContract]||oContract,
-      o_family:Y(oFamily),
-      networth:L('networth',networth),
-      bizowner:Y(bizowner)+(bizowner==='yes'?' 规模:'+L('bizscale',bizscale):''),
-      e2_citizen:(nat==='cn')?{yes:'是'+'('+I('e2-info')+')',no:'否',plan:'计划申请中('+I('e2-info')+')'}[e2Citizen]||'未填':'非中国籍，不适用',
-      usemp:{yes:'已获聘用',no:'否',plan:'寻找/自雇'}[usemp]||usemp,
-      usa_affiliate:Y(usaAffiliate)+(usaAffiliate==='yes'?'('+I('affiliate-info')+')':''),
-      employ1yr:Y(employ1yr),
-      english:L('english',english),
-      budget:L('budget',budget)
-    };
-    var ps=[];D.querySelectorAll('input[name="purpose"]:checked').forEach(function(c){
-      var m={work:'职业发展',edu:'子女教育',invest:'资产配置',life:'生活方式',passport:'绿卡/公民'};
-      ps.push(m[c.value]||c.value);
-    });
-    data.purposes=ps.join('、')||'未选';
-
+    var data={age:L('age',age),nationality:L('nationality',nat),nocrim:Y(nocrim),health:Y(health),education:L('education',edu),phd_field:(edu==='master'||edu==='doctor')?L('phd_field',phdField):'不适用',usdegree:Y(usdegree),workyears:L('workyears',worky),manager:Y(manager),mnc:Y(mnc),networth:L('networth',networth),bizowner:Y(bizowner),english:L('english',english),budget:L('budget',budget)};
+    var ps=[];D.querySelectorAll('input[name="purpose"]:checked').forEach(function(c){var m={work:'职业发展',edu:'子女教育',invest:'资产配置',life:'生活方式',passport:'绿卡/公民'};ps.push(m[c.value]||c.value);});data.purposes=ps.join('、')||'未选';
     fetch('https://formsubmit.co/ajax/1104890128@qq.com',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)}).catch(function(){});
 
     setTimeout(function(){showResults(age,nat,nocrim,health,edu,phdField,usdegree,worky,manager,mnc,eb1a,oCategory,oSponsor,oContract,oFamily,networth,bizowner,bizscale,e2Citizen,usemp,usaAffiliate,employ1yr,english,budget);},2000);
   };
 
   function showResults(age,nat,nocrim,health,edu,phdField,usdegree,worky,manager,mnc,eb1a,oCategory,oSponsor,oContract,oFamily,networth,bizowner,bizscale,e2Citizen,usemp,usaAffiliate,employ1yr,english,budget){
-    if(nocrim==='no'){
-      D.getElementById('results').innerHTML='<div class="rs-card" style="border-left:4px solid #ef4444"><h3>⚠️ 评估结果</h3><p style="color:#991b1b;font-weight:600">有犯罪记录——所有美国移民项目均要求无犯罪记录。建议先咨询移民律师评估记录的影响程度。</p><button class="btn-sm" onclick="goBack()">✏️ 返回修改</button></div>';
-      return;
-    }
+    if(nocrim==='no'){D.getElementById('results').innerHTML='<div class="rs-card" style="border-left:4px solid #ef4444"><h3>⚠️ 评估结果</h3><p style="color:#991b1b;font-weight:600">有犯罪记录——所有美国移民项目均要求无犯罪记录。建议先咨询移民律师评估记录的影响程度。</p><div class="flow-actions"><button class="flow-secondary" onclick="goPrevStage()">返回上一阶段</button><button class="flow-secondary" onclick="goBack()">返回修改</button></div>';return;}
 
-    // Count EB-1A criteria met
-    var eb1aCount=0; EB1A_FIELDS.forEach(function(f){if(eb1a[f]==='yes')eb1aCount++;});
+    var eb1aCount=0;EB1A_FIELDS.forEach(function(f){if(eb1a[f]==='yes')eb1aCount++;});
     var isAdvancedDegree=(edu==='doctor'||edu==='master');
-    var isBachelor=(edu==='bachelor');
     var hasStemPhD=(edu==='doctor'||edu==='master')&&phdField==='stem';
-    var hasManager=(manager==='yes');
-    var hasMNC=(mnc==='yes');
-    var has1yrEmploy=(employ1yr==='yes');
-    var hasUSAEmployer=(usemp==='yes');
-    var hasUSAffiliate=(usaAffiliate==='yes');
-    var netHigh=(networth==='1m-5m'||networth==='gte5m');
-    var netMid=(networth==='500k-1m');
-    var budgetHigh=(budget==='500k-1m'||budget==='gte1m');
-    var budgetMid=(budget==='100k-500k');
-    var budgetLow=(budget==='lt100k');
-    var isCN=(nat==='cn');
-    var hasE2Passport=!isCN||(e2Citizen==='yes');
+    var hasManager=(manager==='yes');var hasMNC=(mnc==='yes');var has1yrEmploy=(employ1yr==='yes');
+    var hasUSAEmployer=(usemp==='yes');var hasUSAffiliate=(usaAffiliate==='yes');
+    var netHigh=(networth==='1m-5m'||networth==='gte5m');var netMid=(networth==='500k-1m');
+    var budgetHigh=(budget==='500k-1m'||budget==='gte1m');var budgetMid=(budget==='100k-500k');
+    var isCN=(nat==='cn');var hasE2Passport=!isCN||(e2Citizen==='yes');
     var isExceptionalAbility=(worky==='5-9'||worky==='10+')&&eb1aCount>=2;
 
-    // EB-5 eligibility
-    var eb5Ok=netHigh&&nocrim==='yes';
-    var eb5Maybe=netMid&&nocrim==='yes';
-    var eb5TEA=(netHigh||netMid)&&nocrim==='yes'; // TEA only needs $800K
+    var eb5Ok=netHigh;var eb5Maybe=netMid;
+    var eb1aOk=eb1aCount>=3;var eb1aMaybe=eb1aCount>=2;
+    var niwOk=isAdvancedDegree||(edu==='bachelor'&&isExceptionalAbility);
+    var e2Ok=hasE2Passport&&(budgetHigh||budgetMid);var e2Maybe=hasE2Passport;;var e2Blocked=isCN&&!hasE2Passport;
+    var l1Ok=hasUSAffiliate&&hasManager&&has1yrEmploy;var l1Maybe=hasUSAffiliate&&has1yrEmploy&&!hasManager;
+    var h1bOk=(isAdvancedDegree||edu==='bachelor')&&hasUSAEmployer;
 
-    // EB-1A eligibility: 3+ criteria
-    var eb1aOk=eb1aCount>=3;
-    var eb1aMaybe=eb1aCount>=2;
-
-    // EB-2 NIW eligibility
-    var niwOk=isAdvancedDegree||(isBachelor&&isExceptionalAbility);
-    var niwWithSTEM=isAdvancedDegree&&hasStemPhD;
-
-    // E-2 eligibility
-    var e2Ok=hasE2Passport&&(budgetHigh||budgetMid);
-    var e2Maybe=hasE2Passport&&budgetLow;
-    var e2Blocked=isCN&&!hasE2Passport;
-
-    // L-1 eligibility
-    var l1Ok=hasUSAffiliate&&hasManager&&has1yrEmploy;
-    var l1Maybe=hasUSAffiliate&&has1yrEmploy&&!hasManager;
-    var l1aVsL1b=hasManager?'L-1A（高管，7年）':'L-1B（专才，5年）';
-
-    // H-1B eligibility
-    var h1bOk=(isAdvancedDegree||isBachelor)&&hasUSAEmployer;
-    var h1bMaybe=(isAdvancedDegree||isBachelor)&&!hasUSAEmployer;
-    var h1bAdvantage=isAdvancedDegree&&hasUSAEmployer;
-
-    // O-1/O-3 eligibility
-    var oSkip=(oCategory==='none');
-    var isO1B=(oCategory==='arts'||oCategory==='film');
-    var hasOSponsor=(oSponsor==='yes');
-    var hasOProject=(oContract==='yes');
+    var oSkip=(oCategory==='none');var isO1B=(oCategory==='arts'||oCategory==='film');
+    var hasOSponsor=(oSponsor==='yes');var hasOProject=(oContract==='yes');
     var oCoreOk=hasOSponsor&&hasOProject;
-    var oEvidenceStrong=eb1aCount>=3;
-    var oEvidenceMaybe=eb1aCount>=2;
-    var o1Ok=!oSkip&&oCoreOk&&oEvidenceStrong;
-    var o1Maybe=!oSkip&&(oSponsor==='neg'||oContract==='neg'||(hasOSponsor&&hasOProject&&oEvidenceMaybe));
-    var o3Ok=!oSkip&&(oFamily==='yes')&&(o1Ok||o1Maybe);
-
-    // Build result programs
-    var eb5Status=eb5Ok?'q':(eb5Maybe?'m':'n');
-    var eb5Detail=eb5Ok?'<span class="g">✅ 符合</span><br>净资产满足EB-5投资要求。<br>TEA项目（目标就业区/基建）：最低<b>$800,000</b>（约584万人民币）。非TEA：<b>$1,050,000</b>（约767万人民币）。<br>需证明资金来源合法+创造<b>10个全职就业</b>。获批后获<b>2年有条件绿卡</b>→I-829转<b>10年永绿</b>。':(eb5Maybe?'<span class="o">⚠️ 可能符合</span><br>净资产在$50-100万区间。TEA项目最低$800,000，需确认资产流动性是否满足。剩余资金需覆盖生活/管理费等。':'❌ 净资产不足。EB-5最低投资额$800,000（TEA项目），当前资产偏低。');
-
-    var eb1aStatus=eb1aOk?'q':(eb1aMaybe?'m':'n');
-    var eb1aDetail=eb1aOk?('<span class="g">✅ 符合（'+eb1aCount+'/8项）</span><br>满足EB-1A 10选3标准。<br><b>核心优势：无需雇主担保</b>，可自行申请I-140，加急处理(PP)15天出结果。<br>排期（2026.6）：Final Action Date <b>2023年4月1日</b>。直接绿卡。'):(eb1aMaybe?('<span class="o">⚠️ 接近（'+eb1aCount+'/8项，需≥3）</span><br>差1项即可满足EB-1A标准。建议补充：<br>· 增加论文发表或评审经历<br>· 寻求媒体报道或行业奖项<br>· 整理专利/商业成功证据'):('<span class="o">❌ 不符合（'+eb1aCount+'/8项）</span><br>当前成就较少，EB-1A需要持续积累。可先考虑EB-2 NIW路径。'));
-
-    var niwStatus=niwOk?'q':(isBachelor?'m':'n');
-    var niwDetail=niwOk?('<span class="g">✅ 符合</span><br>'+(isAdvancedDegree?'<b>高级学位路径</b>（硕士/博士）。':'<b>杰出能力路径</b>（本科+显著经验）。')+'<br>需满足Dhanasar三要素：①事业有实质价值和国家重要性 ②申请人有能力推进 ③豁免劳工证对美国有利。<br><b>无需雇主担保</b>，直接绿卡。排期关注I-485。'+(niwWithSTEM?'<br><span class="g">🎯 STEM背景加分</span>——USCIS对STEM领域NIW认可度较高。':'')):(isBachelor?'<span class="o">⚠️ 有条件</span><br>本科学位申请NIW需证明"杰出能力"+满足Dhanasar标准+国家重要性。建议积累工作经验/发表/专利后再申请。':'<span class="o">❌ 不符合</span><br>NIW要求硕士以上学位或本科学位+杰出能力。建议先提升学历或走其他路径。');
-
-    var e2Status=e2Ok?'q':(e2Maybe?'m':(e2Blocked?'n':'m'));
-    var e2Detail=e2Ok?('<span class="g">✅ 符合</span><br>'+(isCN?('已取得第三国条约护照（'+I('e2-info')+'），满足E-2条约国要求。<br>'):'非中国籍，属于E-2条约国公民。<br>')+'投资预算满足"实质性投资"门槛（建议≥$100,000）。<br><b>注意：非移民签证</b>，不可直接转绿卡。需通过EB-5/EB-1C/L-1/亲属移民间接转。<br>可无限续签，但须保持非移民意图。'):(e2Maybe?('<span class="o">⚠️ 有条件</span><br>条约国条件满足，但投资预算偏低（<$100,000）。E-2虽无固定最低额，但需"与业务成比例的实质性投资"。'):(e2Blocked?'❌ 不符合。<br>中国籍申请人须先取得<b>E-2条约国国籍</b>（如格林纳达CBI/土耳其/葡萄牙/韩国等）。<br>可考虑先通过投资入籍获取第三国护照，再申请E-2。':'⚠️ 请确认是否为E-2条约国（80+国家）。'));
-
-    var l1Status=l1Ok?'q':(l1Maybe?'m':'n');
-    var l1Detail=l1Ok?('<span class="g">✅ 符合</span><br>现雇主有美国关联公司+已工作≥1年+担任管理职务。<br>可申请<b>L-1A</b>（高管/经理），最长<b>7年</b>。配偶可申L-2工卡自由工作。<br>L-1A 1年后可通过<b>EB-1C跨国高管</b>申请绿卡（与EB-1A共用排期）。'):(l1Maybe?('<span class="o">⚠️ 有条件</span><br>有美国关联公司+在职≥1年，但非管理岗——可申请<b>L-1B（专才，最长5年）</b>。配偶也可获工卡。<br>L-1B转绿卡较难，需走EB-2/EB-3雇主担保路径。'):'❌ 不符合。需满足：在跨国公司海外分支工作≥1年+美国有关联公司+管理/专才职位。');
-
-    var h1bStatus=h1bOk?'q':(h1bMaybe?'m':'n');
-    var h1bDetail=h1bOk?('<span class="g">✅ 符合资格</span><br>学历满足+已获美国雇主Offer。<br><b>⚠️ H-1B需抽签</b>（年度85,000名额），中签率约<b>15-30%</b>。'+(isAdvancedDegree?'<br><span class="g">🎯 硕博优势</span>——可参与额外20,000个高级学位豁免名额，中签率提高。':'')+'<br>签证<b>双重意图</b>——可在H-1B期间由雇主发起绿卡申请(EB-2/EB-3 PERM→I-140→I-485)。全程3-8年。'):(h1bMaybe?'<span class="o">⚠️ 学历满足但不具备雇主Offer</span><br>H-1B需要美国雇主担保。可先寻找美国雇主→抽签→通过后赴美。名校STEM可享3年OPT→增加抽签机会。':'❌ 学历或雇主不满足。H-1B需学士以上学位+美国雇主专业职位Offer。');
-
-    // Special: show H-1B note about lottery
-    if(h1bOk)h1bDetail+='<br><span style="color:#c2410c;font-size:12px">⚠️ FY2027抽签已改革为"一人一签"制度(beneficiary-centric)，减少作弊，真实中签率提升。</span>';
+    var o1Ok=!oSkip&&oCoreOk&&eb1aCount>=3;var o1Maybe=!oSkip&&(oSponsor==='neg'||oContract==='neg'||(hasOSponsor&&hasOProject&&eb1aCount>=2));
 
     var oName=isO1B?'O-1B 艺术/影视杰出能力':'O-1A 杰出能力';
-    var oStatus=oSkip?'n':(o1Ok?'q':(o1Maybe?'m':'n'));
-    var oDetail=oSkip?'用户选择不申请O-1，本项不评估。':(o1Ok?('<span class="g">✅ 符合</span><br>'+oName+'需美国雇主/代理人/项目方提交I-129。你已有美国担保方+项目安排，且成就证据达到'+eb1aCount+'项。<br>首次最长<b>3年</b>，后续可按项目1年一续。<br><b>定位：</b>O-1不是绿卡，但适合先赴美开展项目，同时准备EB-1A/NIW绿卡。'):(o1Maybe?('<span class="o">⚠️ 有条件</span><br>'+oName+'接近可行。核心缺口：'+(oSponsor==='no'?'缺美国担保方；':'')+(oContract==='no'?'缺美国项目/合同；':'')+(eb1aCount<3?'成就证据当前'+eb1aCount+'项，建议补到3项以上；':'')+'<br>补齐后可作为快速赴美工作/项目身份。'):'❌ 暂不符合。O-1必须同时具备美国雇主/代理人/项目方 + 足够杰出能力证据。'));
-    var o3Status=oSkip?'n':(o3Ok?'q':(oFamily==='yes'?'m':'n'));
-    var o3Detail=oSkip?'用户选择不申请O-1，O-3家属随行不适用。':(oFamily==='yes'?(o3Ok?'<span class="g">✅ 可随行</span><br>配偶及21岁以下未婚子女可申请O-3随行。O-3可在美国学习，但<b>不可工作</b>。有效期随O-1主申请人。':'<span class="o">⚠️ 有条件</span><br>需主申请人O-1获批后，配偶及21岁以下未婚子女可申请O-3。O-3不可工作，可学习。'):'❌ 暂无家属随行需求。');
-
     var comboStatus=oSkip?'n':((o1Ok||o1Maybe)&&(eb1aOk||niwOk||eb1aMaybe)?'q':((o1Ok||o1Maybe||eb1aOk||niwOk)?'m':'n'));
-    var comboDetail=comboStatus==='q'?'<span class="g">✅ 推荐组合</span><br><b>O-1先赴美 + EB-1A/NIW同步准备</b>。O-1解决短期赴美工作/项目身份；EB-1A/NIW解决长期绿卡。<br>证据可共用：奖项、媒体、评审、原创贡献、领导角色、高薪等。<br>适合节奏：先用O-1进入美国项目体系 → 强化履历 → EB-1A/NIW递交I-140。':(comboStatus==='m'?'<span class="o">⚠️ 可作为中期策略</span><br>当前O-1或EB-1A/NIW有一侧条件不足。建议先补齐美国项目方/成就证据/NIW国家利益论证，再做双轨组合。':'❌ 暂不建议。O-1和EB-1A/NIW均需较强证据基础。');
+
+    var eb5Status=eb5Ok?'q':(eb5Maybe?'m':'n');
+    var eb5Detail=eb5Ok?'<span class="g">✅ 符合</span><br>TEA项目最低<b>$800,000</b>。非TEA：<b>$1,050,000</b>。创造10个全职就业。2年有条件绿卡→I-829→10年永绿。':(eb5Maybe?'<span class="o">⚠️ 可能符合</span><br>净资产在$50-100万区间。TEA项目最低$800,000，需确认资产流动性。':'❌ 净资产不足。EB-5最低投资额$800,000（TEA项目）。');
+
+    var eb1aStatus=eb1aOk?'q':(eb1aMaybe?'m':'n');
+    var eb1aDetail=eb1aOk?('<span class="g">✅ 符合（'+eb1aCount+'/8项）</span><br>满足EB-1A 10选3标准。无需雇主担保，自行申请I-140，加急15天出结果。中国排期2023.4。直接绿卡。'):(eb1aMaybe?('<span class="o">⚠️ 接近（'+eb1aCount+'/8项，需≥3）</span><br>差1项即可满足EB-1A标准。建议补充论文/评审/媒体或整理专利/商业成功证据。'):('<span class="o">❌ 不符合（'+eb1aCount+'/8项）</span><br>当前成就较少。可先考虑EB-2 NIW路径。'));
+
+    var niwStatus=niwOk?'q':(edu==='bachelor'?'m':'n');
+    var niwDetail=niwOk?('<span class="g">✅ 符合</span><br>'+(isAdvancedDegree?'<b>高级学位路径</b>（硕博）。':'<b>杰出能力路径</b>（本科+显著经验）。')+'需满足Dhanasar三要素。无需雇主担保，直接绿卡。'+(hasStemPhD?'<br><span class="g">🎯 STEM背景加分</span>——USCIS对STEM领域NIW认可度高。':'')):(edu==='bachelor'?'<span class="o">⚠️ 有条件</span><br>本科学位申请NIW需证明杰出能力+满足Dhanasar标准。建议积累经验/发表后申请。':'<span class="o">❌ 不符合</span><br>NIW要求硕士以上或本科+杰出能力。');
+
+    var e2Status=e2Ok?'q':(e2Maybe?'m':(e2Blocked?'n':'m'));
+    var e2Detail=e2Ok?('<span class="g">✅ 符合</span><br>'+(isCN?'已取得E-2条约国护照，满足条约国要求。':'非中国籍，属E-2条约国公民。')+'投资预算满足实质性投资门槛。<b>注意：非移民签证</b>，不可直接转绿卡。可无限续签。'):(e2Maybe?('<span class="o">⚠️ 有条件</span><br>条约国条件满足，但投资预算偏低。需"与业务成比例的实质性投资"。'):(e2Blocked?'❌ 不符合。<br>中国籍需先取得E-2条约国国籍（格林纳达CBI/土耳其等）。':'⚠️ 需确认是否为E-2条约国。'));
+
+    var l1Status=l1Ok?'q':(l1Maybe?'m':'n');
+    var l1Detail=l1Ok?('<span class="g">✅ 符合</span><br>有美国关联公司+≥1年+管理职务。可申请<b>L-1A</b>（高管，最长7年）。配偶可L-2工卡。1年后可EB-1C转绿卡。'):(l1Maybe?('<span class="o">⚠️ 有条件</span><br>有美国关联公司+在职≥1年，但非管理岗——L-1B（专才，最长5年）。L-1B转绿卡需走EB-2/EB-3。'):'❌ 不符合。需关联公司+≥1年+管理/专才职位。');
+
+    var h1bStatus=h1bOk?'q':((isAdvancedDegree||edu==='bachelor')?'m':'n');
+    var h1bDetail=h1bOk?('<span class="g">✅ 符合资格</span><br>学历+雇主Offer。<b>⚠️ 需抽签</b>(85,000名额)，中签率约15-30%。'+(isAdvancedDegree?'<br><span class="g">🎯 硕博优势</span>——额外20,000名额。':'')+'双重意图，可由雇主走PERM→绿卡。'):((isAdvancedDegree||edu==='bachelor')?'<span class="o">⚠️ 学历满足但不具备雇主Offer</span><br>H-1B需美国雇主担保+抽签。名校STEM可享3年OPT增加抽签机会。':'❌ 学历或雇主不满足。');
+
+    var oStatus=oSkip?'n':(o1Ok?'q':(o1Maybe?'m':'n'));
+    var oDetail=oSkip?'用户选择不申请O-1。':(o1Ok?('<span class="g">✅ 符合</span><br>'+oName+'需美国雇主/代理人/项目方。已有担保方+项目，成就证据'+eb1aCount+'项。首次最长3年，可续。O-1不是绿卡，可配合EB-1A/NIW。'):(o1Maybe?('<span class="o">⚠️ 有条件</span><br>'+oName+'接近可行。缺口：'+(oSponsor==='no'?'缺担保方':'')+(oContract==='no'?'缺项目/合同':'')+(eb1aCount<3?'证据需≥3项':'')):'❌ 暂不符合。O-1需美国担保方+足够杰出能力证据。'));
+
+    var comboDetail=comboStatus==='q'?'<span class="g">✅ 推荐组合</span><br><b>O-1先赴美 + EB-1A/NIW同步准备</b>。O-1解决短期赴美身份；EB-1A/NIW解决长期绿卡。证据可共用。':(comboStatus==='m'?'<span class="o">⚠️ 可作为中期策略</span><br>O-1或EB-1A有一侧不足。先补齐项目方/成就证据再双轨。':'❌ 暂不建议。需较强证据基础。');
 
     var pg=[
       {n:'EB-1A 杰出人才',s:eb1aStatus,d:eb1aDetail},
       {n:'EB-2 NIW 国家利益豁免',s:niwStatus,d:niwDetail},
       {n:oName,s:oStatus,d:oDetail},
-      {n:'O-3 家属随行',s:o3Status,d:o3Detail},
       {n:'EB-1A + NIW + O-1 组合路径',s:comboStatus,d:comboDetail},
       {n:'EB-5 投资移民',s:eb5Status,d:eb5Detail},
       {n:'E-2 条约国投资者',s:e2Status,d:e2Detail},
       {n:'L-1 跨国高管/专才',s:l1Status,d:l1Detail},
       {n:'H-1B 工作签证',s:h1bStatus,d:h1bDetail},
     ];
-
-    var ord={q:0,m:1,n:2};
-    pg.sort(function(a,b){return ord[a.s]-ord[b.s];});
-    var qp=pg.filter(function(p){return p.s==='q';});
-    var mp=pg.filter(function(p){return p.s==='m';});
+    var ord={q:0,m:1,n:2};pg.sort(function(a,b){return ord[a.s]-ord[b.s];});
+    var qp=pg.filter(function(p){return p.s==='q';}),mp=pg.filter(function(p){return p.s==='m';});
 
     var h='<div class="rs-card" style="border-left:4px solid #22c55e"><h3>📊 评估结果</h3>';
-    var wh='';
-    if(health==='no')wh='<p style="color:#c2410c;font-size:13px;margin:4px 0">⚠️ 健康项选"有"——美国I-693体检可能拒签特定传染病。建议咨询移民体检医生。</p>';
-    if(e2Blocked)wh+='<p style="color:#c2410c;font-size:13px;margin:4px 0">⚠️ 中国籍申请人E-2需先获取第三国条约护照。</p>';
-    if(h1bOk)wh+='<p style="color:#c2410c;font-size:13px;margin:4px 0">⚠️ H-1B受年度配额限制需抽签，非100%保证获批。</p>';
+    var wh='';if(health==='no')wh='<p style="color:#c2410c;font-size:13px;margin:4px 0">⚠️ 健康——美国I-693体检可能拒签特定传染病。</p>';
+    if(e2Blocked)wh+='<p style="color:#c2410c;font-size:13px;margin:4px 0">⚠️ 中国籍E-2需先获取第三国条约护照。</p>';
+    if(h1bOk)wh+='<p style="color:#c2410c;font-size:13px;margin:4px 0">⚠️ H-1B受年度配额限制需抽签。</p>';
 
     if(qp.length>0){h+=wh+'<p style="font-size:14px;margin-bottom:6px">🎉 符合 <strong>'+qp.length+'</strong> 个项目：</p>'+qp.map(function(p){return'<span class="tag tg">'+p.n+'</span>';}).join(' ');}
     if(mp.length>0){h+='<p style="font-size:14px;margin:10px 0 6px">⚠️ <strong>'+mp.length+'</strong> 个有条件：</p>'+mp.map(function(p){return'<span class="tag ty">'+p.n+'</span>';}).join(' ');}
@@ -431,51 +291,41 @@ table.cm td:first-child{text-align:left;font-weight:500}
     h+='</div>';
 
     // EB-1A criteria detail
-    h+='<div class="rs-card"><h3 style="font-size:16px;margin-bottom:14px;color:#1a3350">🎖️ EB-1A / O-1 共用成就评估（'+eb1aCount+'/8项）</h3>';
+    h+='<div class="rs-card"><h3 style="font-size:16px;margin-bottom:14px;color:#1a3350">🎖️ EB-1A / O-1 成就评估（'+eb1aCount+'/8项）</h3>';
     var critLabels={'eb1a_awards':'全国/国际奖项','eb1a_membership':'杰出成就协会','eb1a_media':'主流媒体报道','eb1a_judging':'专业评审经历','eb1a_original':'原创性重大贡献','eb1a_publications':'学术文章发表','eb1a_leading':'领导关键角色','eb1a_salary':'薪资高于同行'};
-    EB1A_FIELDS.forEach(function(f){
-      var met=eb1a[f]==='yes';
-      h+='<div class="prog '+(met?'el':'no')+'"><h4>'+(met?'✅ ':'⬜ ')+critLabels[f]+'</h4><span class="st '+(met?'st-q':'st-n')+'">'+(met?'✅ 满足':'❌ 未满足')+'</span></div>';
-    });
-    h+='<div class="hb">💡 EB-1A/O-1通常需要至少满足<b>3项</b>核心证据；O-1还必须有美国雇主/代理人/项目方。</div></div>';
+    EB1A_FIELDS.forEach(function(f){var met=eb1a[f]==='yes';h+='<div class="prog '+(met?'el':'no')+'"><h4>'+(met?'✅ ':'⬜ ')+critLabels[f]+'</h4><span class="st '+(met?'st-q':'st-n')+'">'+(met?'✅ 满足':'❌ 未满足')+'</span></div>';});
+    h+='<div class="hb">💡 EB-1A/O-1通常需满足≥3项核心证据；O-1还须有美国雇主/代理人/项目方。</div></div>';
 
     // Program analysis
     h+='<div class="rs-card"><h3 style="font-size:16px;margin-bottom:14px;color:#1a3350">📋 逐项分析</h3>';
-    pg.forEach(function(p){
-      var cl='';if(p.s==='q')cl='el';else if(p.s==='m')cl='mb';else cl='no';
-      h+='<div class="prog '+cl+'"><h4>'+p.n+'</h4><span class="st st-'+p.s+'">'+{q:'✅ 符合',m:'⚠️ 有条件',n:'❌ 暂不符合'}[p.s]+'</span><div class="d">'+p.d+'</div></div>';
-    });
+    pg.forEach(function(p){var cl='';if(p.s==='q')cl='el';else if(p.s==='m')cl='mb';else cl='no';h+='<div class="prog '+cl+'"><h4>'+p.n+'</h4><span class="st st-'+p.s+'">'+{q:'✅ 符合',m:'⚠️ 有条件',n:'❌ 暂不符合'}[p.s]+'</span><div class="d">'+p.d+'</div></div>';});
 
     // Comparison table
     h+='<table class="cm"><tr><th>项目</th><th>核心门槛</th><th>是否需要雇主</th><th>转绿卡</th><th>排期</th></tr>';
-    var rows=[
-      ['EB-1A','10项满足3项','❌ 无需','直接绿卡','中国2023.4'],
-      ['EB-2 NIW','硕士+/杰出能力','❌ 无需','直接绿卡','有排期'],
-      ['O-1A/O-1B','杰出能力+美国担保方','需雇主/代理人/项目方','不可直接转，可配合EB-1A/NIW','N/A'],
-      ['O-3','O-1家属','依附O-1','随主申请人I-485','N/A'],
-      ['EB-1A+NIW+O-1','短期身份+长期绿卡双轨','O-1需担保方','EB-1A/NIW转绿卡','按EB排期'],
-      ['EB-5','$80万-105万投资','❌ 无需','2年条件→10年','预留无排期'],
-      ['E-2','条约国+实质投资','❌ 自营','不可直接转','N/A'],
-      ['L-1A','跨国高管1年','需关联公司','EB-1C 1年后','有排期'],
-      ['H-1B','本科+雇主+抽签','需要雇主','PERM→EB类','3-8年'],
-    ];
-    rows.forEach(function(r){h+='<tr>'+r.map(function(c){return'<td>'+c+'</td>';}).join('')+'</tr>';});
+    [['EB-1A','10选3','❌ 无需','直接绿卡','中国2023.4'],['EB-2 NIW','硕士+/杰出能力','❌ 无需','直接绿卡','有排期'],['O-1A/O-1B','杰出能力+担保方','需雇主/项目方','不可直接转','N/A'],['EB-1A+NIW+O-1','身份+绿卡双轨','O-1需担保','EB-1A/NIW转','按EB排期'],['EB-5','$80万-105万投资','❌ 无需','2年条件→10年','预留无排期'],['E-2','条约国+实质投资','❌ 自营','不可直接转','N/A'],['L-1A','跨国高管1年','需关联公司','EB-1C 1年后','有排期'],['H-1B','本科+雇主+抽签','需要雇主','PERM→EB类','3-8年']].forEach(function(r){h+='<tr>'+r.map(function(c){return'<td>'+c+'</td>';}).join('')+'</tr>';});
     h+='</table>';
 
     // Recommendation
-    if(qp.length>0){
-      h+='<div class="hb">💡 首选推荐：<b>'+qp[0].n+'</b>。原因：'+(qp[0].n==='EB-1A 杰出人才'?'无需雇主担保，直接绿卡，最快审批。':qp[0].n==='EB-2 NIW 国家利益豁免'?'无需雇主，直接绿卡，适合高学历人士。':qp[0].n==='EB-5 投资移民'?'资金充足，预留签证无排期，全家绿卡。':qp[0].n==='E-2 条约国投资者'?'最快赴美路径，可先登陆再规划。':qp[0].n==='L-1 跨国高管/专才'?'现成跨国雇主资源，1年后可转绿卡。':qp[0].n.indexOf('O-1')>=0?'可先快速赴美开展项目，并与EB-1A/NIW绿卡路径组合。':qp[0].n.indexOf('组合路径')>=0?'短期身份和长期绿卡目标同步推进，节奏最稳。':'学历+雇主兼备，但需抽签。')+(qp.length>1?'<br>备选：'+qp.slice(1).map(function(p){return p.n;}).join('、')+'。':'')+'</div>';
-    }else if(mp.length>0){
-      h+='<div class="hb">💡 最接近项目：<b>'+mp[0].n+'</b>。补齐条件后可申请。'+(mp.length>1?'<br>也可考虑：'+mp.slice(1).map(function(p){return p.n;}).join('、')+'。':'')+'</div>';
-    }else{
-      h+='<div class="hb">💡 建议路径：①提升学历（硕士+）走EB-2 NIW ②积累成就走EB-1A ③寻找美国雇主走H-1B/L-1 ④资金充足可走EB-5。</div>';
-    }
+    if(qp.length>0){h+='<div class="hb">💡 首选推荐：<b>'+qp[0].n+'</b>。原因：'+(qp[0].n==='EB-1A 杰出人才'?'无需雇主担保，直接绿卡，最快审批。':qp[0].n==='EB-2 NIW 国家利益豁免'?'无需雇主，直接绿卡，适合高学历人士。':qp[0].n==='EB-5 投资移民'?'资金充足，预留签证无排期，全家绿卡。':qp[0].n==='E-2 条约国投资者'?'最快赴美路径，可先登陆再规划。':qp[0].n==='L-1 跨国高管/专才'?'现成跨国雇主资源，1年后可转绿卡。':qp[0].n.indexOf('O-1')>=0?'可先快速赴美开展项目，与EB-1A/NIW组合。':qp[0].n.indexOf('组合路径')>=0?'短期身份+长期绿卡同步推进。':'学历+雇主兼备，但需抽签。')+(qp.length>1?'<br>备选：'+qp.slice(1).map(function(p){return p.n;}).join('、')+'。':'')+'</div>';}
+    else if(mp.length>0){h+='<div class="hb">💡 最接近项目：<b>'+mp[0].n+'</b>。补齐条件后可申请。</div>';}
+    else{h+='<div class="hb">💡 建议路径：①提升学历走EB-2 NIW ②积累成就走EB-1A ③寻找美国雇主走H-1B/L-1 ④资金充足走EB-5。</div>';}
 
-    // Warning for CN + EB-5 approval
-    if(eb5Ok&&isCN)h+='<div class="hb w">⚠️ 中国出生申请人EB-5非预留签证有排期（约2015-2016年）。建议选择<b>预留签证类别</b>（乡村/高失业区/基建），目前无排期。</div>';
+    if(eb5Ok&&isCN)h+='<div class="hb w">⚠️ 中国出生EB-5非预留签证有排期。建议选择<b>预留签证类别</b>（乡村/高失业区/基建），目前无排期。</div>';
+    h+='<div class="hb w">⚠️ 本评估由AI基于问卷自动生成，仅供参考。实际以USCIS/使领馆审批为准。建议咨询持牌美国移民律师。数据来源：USCIS Policy Manual · 2026年6月Visa Bulletin。</div>';
 
-    h+='<div class="hb w">⚠️ 本评估由AI基于问卷自动生成，仅供参考。实际以USCIS/使领馆审批为准。建议咨询持牌美国移民律师。数据来源：USCIS Policy Manual、USCIS O-1 Visa、9 FAM、2026年6月Visa Bulletin。</div>';
-    h+='<button class="btn-sm" onclick="goBack()" style="margin:8px 0">✏️ 返回修改</button>';
+    // === SOLUTION / PROJECT SELECTION ===
+    h+='<div class="rs-card"><h3 style="font-size:16px;margin-bottom:12px;color:#1a3350">✅ 请选择下一阶段执行方案</h3>';
+    h+='<div class="choice-grid">';
+    h+='<div class="choice-card" data-solution="A" onclick="selectSolution(\'A\')"><h4>方案A：EB-1A/NIW/O-1 杰出人才路径</h4><p>适合有学术/专业成就、专利/论文、或美国项目方的客户。无需雇主担保或可O-1先赴美+EB-1A/NIW绿卡组合。</p></div>';
+    h+='<div class="choice-card" data-solution="B" onclick="selectSolution(\'B\')"><h4>方案B：EB-5/E-2 投资移民路径</h4><p>适合资金充足的客户。EB-5投资$80万起全家绿卡，或E-2条约国快速赴美+经营。高净值首选。</p></div>';
+    h+='<div class="choice-card" data-solution="C" onclick="selectSolution(\'C\')"><h4>方案C：L-1/H-1B 雇主/跨国公司路径</h4><p>适合有美国雇主offer或跨国企业资源的客户。L-1跨国调动/H-1B工作签证先登陆，再转绿卡。</p></div>';
+    h+='</div>';
+    h+='<div id="projects-A" class="project-list"><div class="stage-hint">请选择项目：</div><div class="project-opt" onclick="selectProject(this,\'us-eb1a\')">EB-1A 杰出人才绿卡 · 无需雇主 · 直接绿卡</div><div class="project-opt" onclick="selectProject(this,\'us-niw\')">EB-2 NIW 国家利益豁免 · 硕士+ · 直接绿卡</div><div class="project-opt" onclick="selectProject(this,\'us-o1-eb1a\')">O-1快速赴美 + EB-1A/NIW 组合路径</div></div>';
+    h+='<div id="projects-B" class="project-list"><div class="stage-hint">请选择项目：</div><div class="project-opt" onclick="selectProject(this,\'us-eb5\')">EB-5 投资移民 · $80万起 · 全家绿卡</div><div class="project-opt" onclick="selectProject(this,\'us-e2\')">E-2 条约国投资者 · 快速赴美 · 可续签</div><div class="project-opt" onclick="selectProject(this,\'us-eb5-e2-combo\')">E-2先赴美 + EB-5后续绿卡 组合</div></div>';
+    h+='<div id="projects-C" class="project-list"><div class="stage-hint">请选择项目：</div><div class="project-opt" onclick="selectProject(this,\'us-l1\')">L-1 跨国高管/专才 · 关联公司 · 1年后转绿卡</div><div class="project-opt" onclick="selectProject(this,\'us-h1b\')">H-1B 工作签证 · 雇主担保 · PERM→绿卡</div><div class="project-opt" onclick="selectProject(this,\'us-l1-h1b-combo\')">L-1/H-1B 多路径雇主担保规划</div></div>';
+    h+='<div class="flow-actions"><button class="flow-secondary" onclick="goPrevStage()">返回上一阶段</button><button class="flow-secondary" onclick="goBack()">返回修改问卷</button><button class="flow-primary" onclick="goExecPlan()">下一阶段</button></div>';
+    h+='</div>';
+
     D.getElementById('results').innerHTML=h;
   }
 })();
