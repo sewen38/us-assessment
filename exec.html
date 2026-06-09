@@ -1110,19 +1110,6 @@ ODI适合金额大（$80万+级别）、合规性要求最高的EB-5路径。但
 `;
 
 document.getElementById('docView').innerHTML=mdToHtml(md);
-  setTimeout(function(){
-    var h2s=document.getElementById('docView').querySelectorAll('h2,h3');
-    for(var i=0;i<h2s.length;i++){
-      if(h2s[i].textContent.indexOf('6.1')>=0){
-        var img=document.createElement('img');
-        img.src='flow-财富架构.svg';
-        img.alt='美国财富架构';
-        img.style='width:100%;max-width:800px;border-radius:12px;border:1px solid #e5e7eb;margin:8px 0';
-        h2s[i].parentNode.insertBefore(img,h2s[i]);
-        break;
-      }
-    }
-  },200);
 
 }
 
