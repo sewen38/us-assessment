@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 660" font-family="-apple-system,'PingFang SC','Helvetica Neue',Arial,sans-serif">
+  <defs>
+    <linearGradient id="top" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1a365d"/><stop offset="100%" stop-color="#2b6cb0"/></linearGradient>
+    <linearGradient id="mid" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0d9488"/><stop offset="100%" stop-color="#14b8a6"/></linearGradient>
+    <linearGradient id="main" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#b91c1c"/><stop offset="100%" stop-color="#ef4444"/></linearGradient>
+    <linearGradient id="gr1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1e40af"/><stop offset="100%" stop-color="#3b82f6"/></linearGradient>
+    <linearGradient id="gr2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#7c3aed"/><stop offset="100%" stop-color="#a78bfa"/></linearGradient>
+    <linearGradient id="gr3" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#b45309"/><stop offset="100%" stop-color="#f59e0b"/></linearGradient>
+    <filter id="shadow"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.12"/></filter>
+  </defs>
+
+  <rect width="760" height="660" rx="16" fill="#fafafa" stroke="#e5e7eb" stroke-width="1"/>
+
+  <!-- Node 1: 中国 -->
+  <rect x="180" y="20" width="400" height="55" rx="12" fill="url(#top)" filter="url(#shadow)"/>
+  <text x="380" y="44" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">🏢 中国事业主体 / 家庭资产</text>
+  <text x="380" y="63" text-anchor="middle" fill="rgba(255,255,255,0.75)" font-size="11">事业国 · 赚钱地</text>
+
+  <defs><marker id="arrowD" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><polygon points="0,0 10,4 0,8" fill="#1a365d"/></marker></defs>
+  <defs><marker id="arrowT" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><polygon points="0,0 10,4 0,8" fill="#0d9488"/></marker></defs>
+  <defs><marker id="arrowR" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><polygon points="0,0 10,4 0,8" fill="#b91c1c"/></marker></defs>
+  <defs><marker id="arrowB" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><polygon points="0,0 10,4 0,8" fill="#1e40af"/></marker></defs>
+  <defs><marker id="arrowP" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><polygon points="0,0 10,4 0,8" fill="#7c3aed"/></marker></defs>
+  <defs><marker id="arrowO" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><polygon points="0,0 10,4 0,8" fill="#b45309"/></marker></defs>
+
+  <!-- Arrow 1 -->
+  <line x1="380" y1="75" x2="380" y2="112" stroke="#1a365d" stroke-width="2.5" marker-end="url(#arrowD)"/>
+  <rect x="395" y="82" width="130" height="24" rx="6" fill="#dbeafe"/>
+  <text x="460" y="99" text-anchor="middle" fill="#1e40af" font-size="11" font-weight="600">↓ 合规资金路径</text>
+
+  <!-- Node 2: 离岸保护层 -->
+  <rect x="130" y="118" width="500" height="68" rx="12" fill="url(#mid)" filter="url(#shadow)"/>
+  <text x="380" y="144" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">🛡️ 离岸保护层：香港 / 新加坡 / BVI / 开曼</text>
+  <text x="380" y="162" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="11">管钱地 · 资产隔离 · 家族信托 · 跨境税务筹划</text>
+  <text x="380" y="178" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-size="10">ODI / 37号文登记 / 境外分红 / 合规换汇</text>
+
+  <!-- Arrow 2 - splits into branches -->
+  <line x1="380" y1="186" x2="380" y2="220" stroke="#0d9488" stroke-width="2" stroke-dasharray="6,4"/>
+  <line x1="100" y1="220" x2="660" y2="220" stroke="#0d9488" stroke-width="2"/>
+  
+  <!-- Investment branch -->
+  <line x1="200" y1="220" x2="200" y2="250" stroke="#b91c1c" stroke-width="2.5" marker-end="url(#arrowR)"/>
+  <rect x="175" y="215" width="50" height="18" rx="5" fill="#fee2e2"/>
+  <text x="200" y="228" text-anchor="middle" fill="#991b1b" font-size="9" font-weight="600">投资</text>
+
+  <!-- Talent branch -->
+  <line x1="380" y1="220" x2="380" y2="250" stroke="#1e40af" stroke-width="2.5" marker-end="url(#arrowB)"/>
+  <rect x="355" y="215" width="50" height="18" rx="5" fill="#dbeafe"/>
+  <text x="380" y="228" text-anchor="middle" fill="#1e40af" font-size="9" font-weight="600">才能</text>
+
+  <!-- Business branch -->
+  <line x1="560" y1="220" x2="560" y2="250" stroke="#7c3aed" stroke-width="2.5" marker-end="url(#arrowP)"/>
+  <rect x="535" y="215" width="50" height="18" rx="5" fill="#ede9fe"/>
+  <text x="560" y="228" text-anchor="middle" fill="#7c3aed" font-size="9" font-weight="600">经营</text>
+
+  <!-- Node 3: EB-5 -->
+  <rect x="80" y="255" width="240" height="65" rx="10" fill="url(#main)" filter="url(#shadow)"/>
+  <text x="200" y="279" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">🇺🇸 EB-5 投资移民</text>
+  <text x="200" y="297" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-size="10">$800K TEA · 2年条件绿卡 → I-829</text>
+  <text x="200" y="312" text-anchor="middle" fill="rgba(255,255,255,0.65)" font-size="9">2022 RIA法案 · 预留类别无排期</text>
+
+  <!-- Node 4: EB-1A/NIW -->
+  <rect x="340" y="255" width="240" height="65" rx="10" fill="url(#gr1)" filter="url(#shadow)"/>
+  <text x="460" y="279" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">🏆 EB-1A / NIW</text>
+  <text x="460" y="297" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-size="10">杰出人才 · 无需雇主 · 无需投资</text>
+  <text x="460" y="312" text-anchor="middle" fill="rgba(255,255,255,0.65)" font-size="9">O-1A桥梁 · 可加急15天</text>
+
+  <!-- Node 5: L-1/E-2 -->
+  <rect x="600" y="255" width="240" height="65" rx="10" fill="url(#gr3)" filter="url(#shadow)"/>
+  <text x="720" y="279" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">🏢 L-1 / E-2</text>
+  <text x="720" y="297" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-size="10">跨国高管 · 条约国投资</text>
+  <text x="720" y="312" text-anchor="middle" fill="rgba(255,255,255,0.65)" font-size="9">L-1→EB-1C绿卡 · E-2可续</text>
+
+  <!-- Merge arrows from three paths -->
+  <line x1="200" y1="320" x2="200" y2="355" stroke="#b91c1c" stroke-width="2"/>
+  <line x1="460" y1="320" x2="460" y2="355" stroke="#1e40af" stroke-width="2"/>
+  <line x1="720" y1="320" x2="720" y2="355" stroke="#b45309" stroke-width="2"/>
+  
+  <line x1="100" y1="355" x2="820" y2="355" stroke="#1a365d" stroke-width="2" stroke-dasharray="6,4"/>
+  <line x1="460" y1="355" x2="460" y2="385" stroke="#1a365d" stroke-width="2.5" marker-end="url(#arrowD)"/>
+
+  <!-- Node 6: US Green Card -->
+  <rect x="130" y="390" width="500" height="65" rx="12" fill="url(#gr2)" filter="url(#shadow)"/>
+  <text x="380" y="416" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">🟢 美国永久居民（绿卡）</text>
+  <text x="380" y="434" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-size="11">居住国 · 全家绿卡 · 自由工作/经商 · 州内学费</text>
+  <text x="380" y="449" text-anchor="middle" fill="rgba(255,255,255,0.65)" font-size="9">全球征税 · FATCA · 离境限制</text>
+
+  <!-- Arrow to citizenship -->
+  <line x1="380" y1="455" x2="380" y2="488" stroke="#1a365d" stroke-width="2" marker-end="url(#arrowD)"/>
+  <rect x="395" y="462" width="100" height="20" rx="5" fill="#dbeafe"/>
+  <text x="445" y="476" text-anchor="middle" fill="#1e40af" font-size="10" font-weight="600">5年后 →</text>
+
+  <!-- Node 7: Citizenship -->
+  <rect x="200" y="495" width="360" height="45" rx="12" fill="#1a365d" filter="url(#shadow)"/>
+  <text x="380" y="518" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">🇺🇸 美国公民</text>
+  <text x="380" y="533" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="10">5年实际居住≥30个月 · 英语+公民考试</text>
+
+  <!-- Bottom note -->
+  <rect x="30" y="558" width="700" height="55" rx="10" fill="#f3f4f6" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="380" y="578" text-anchor="middle" fill="#6b7280" font-size="11">
+    🏢 事业国 = 中国（主营业务） ｜ 🛡️ 管钱地 = 香港/新加坡/BVI（离岸保护层）
+  </text>
+  <text x="380" y="596" text-anchor="middle" fill="#6b7280" font-size="11">
+    🟢 居住国 = 美国（绿卡/公民） ｜ ⚠️ 三分离原则：赚钱地 ≠ 管钱地 ≠ 生活地
+  </text>
+  <text x="380" y="611" text-anchor="middle" fill="#9ca3af" font-size="9">
+    ⚠️ 美国全球征税 · 绿卡持有者须申报全球收入 · 避免被认定为中国+美国双重税务居民
+  </text>
+
+  <!-- Title -->
+  <text x="380" y="642" text-anchor="middle" fill="#9ca3af" font-size="10">美国移民 · 财富架构图</text>
+</svg>
