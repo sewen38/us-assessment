@@ -192,7 +192,7 @@ window.goExecPlan=function(){
   var u=new URL(window.location.href);
   var batch=u.searchParams.get('batch')||'';
   var issue=u.searchParams.get('issue')||'';
-  if(checks.length===0&&batch!=='1'){alert('请至少选择一个通过评估的项目');return;}
+  if(checks.length===0&&batch!=='1'){window.location.href='https://sewen38.github.io/family-plan/?issue='+(issue||'');return;}
   var projects=Array.from(checks).map(function(c){return c.value;});
   if(batch==='1'&&issue){
     try{var bd=JSON.parse(localStorage.getItem('***')||'{}');bd[issue]=bd[issue]||{};bd[issue]['us']={projects:projects,ts:Date.now()};localStorage.setItem('***',JSON.stringify(bd));}catch(e){}
@@ -371,8 +371,8 @@ var e2Blocked=isCN&&!hasE2Passport;
       h+='<div class="flow-actions"><button class="flow-secondary" onclick="goPrevStage()">返回上一阶段</button><button class="flow-secondary" onclick="goBack()">返回修改问卷</button><button class="flow-primary" onclick="goExecPlan()">下一阶段</button></div>';
       h+='</div>';
     } else {
-      h+='<div class="rs-card"><p style="color:#888;text-align:center;padding:20px">⚠️ 暂未匹配到完全符合条件的项目，请返回修改问卷选项。</p>';
-      h+='<div class="flow-actions"><button class="flow-secondary" onclick="goPrevStage()">返回上一阶段</button><button class="flow-secondary" onclick="goBack()">返回修改问卷</button></div>';
+      h+='<div class="rs-card"><p style="color:#888;text-align:center;padding:20px">⚠️ 暂未匹配到完全符合条件的项目。</p>';
+      h+='<div class="flow-actions"><button class="flow-secondary" onclick="goPrevStage()">返回上一阶段</button><button class="flow-secondary" onclick="goBack()">返回修改问卷</button><button class="flow-primary" style="background:#d97706" onclick="goExecPlan()">下一阶段（跳过该国）</button></div>';
       h+='</div>';
     }
     h+='</div>';
