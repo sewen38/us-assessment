@@ -193,7 +193,7 @@ window.goExecPlan=function(){
   var batch=u.searchParams.get('batch')||'';
   var issue=u.searchParams.get('issue')||'';
   if(checks.length===0&&batch!=='1'){window.location.href='https://sewen38.github.io/family-plan/?issue='+(issue||'');return;}
-  var projects=Array.from(checks).map(function(c){return c.value;});
+  var seenProjects={};var projects=Array.from(checks).map(function(c){return String(c.value||'').trim();}).filter(function(v){if(!v||seenProjects[v])return false;seenProjects[v]=1;return true;});
   if(batch==='1'&&issue){
     try{var bd=JSON.parse(localStorage.getItem('***')||'{}');bd[issue]=bd[issue]||{};bd[issue]['us']={projects:projects,ts:Date.now()};localStorage.setItem('***',JSON.stringify(bd));}catch(e){}
     var retUrl=u.searchParams.get('return')||'https://sewen38.github.io/family-plan/?batch=1&issue='+issue;
